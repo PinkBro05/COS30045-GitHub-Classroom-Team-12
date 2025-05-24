@@ -4,8 +4,45 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Road Safety Australia</title>
+    <link rel="stylesheet" href="css/base.css">
+    <link rel="stylesheet" href="css/visualisations.css">
 </head>
 <body>
+    <header>
+        <h1>Road Safety Infringement in Australia</h1>
+        <nav>
+            <ul>
+                <li><a href="index.html" class="active">Data Overview</a></li>
+                <li><a href="drugs-comparison.html">Drug Usage Comparison</a></li>
+                <li><a href="method-comparison.html">Fines Method Comparison</a></li>
+            </ul>
+        </nav>
+    </header>
 
+    <main>
+        <div class="intro">
+            <h2>Road Safety Data Overview</h2>
+            <p>This dashboard provides an overview of road safety infringements across Australia.</p>
+        </div>
+
+        <div class="chart-section">
+            <h3>Infringement Distribution by State</h3>
+            <div id="australia-map" class="responsive-svg-container map-container"></div>
+        </div>
+
+        <div class="chart-section">
+            <h3>Infringement Categories Over Time</h3>
+            <div id="stacked-area" class="responsive-svg-container"></div>
+        </div>
+
+        <div class="chart-section">
+            <h3>Drug and Alcohol Testing Trends</h3>
+            <div id="combination-chart" class="responsive-svg-container"></div>
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 Road Safety Australia Data Visualisation</p>
+    </footer>
 </body>
 </html>
