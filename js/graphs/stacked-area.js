@@ -157,10 +157,6 @@ function drawStackedArea(selector, data) {
     .range([CHART_CONFIG.dimensions.inner.height, 0])
     .nice();
 
-  const stateColorScale = d3.scaleOrdinal()
-    .domain(d3.union(data.map(d => d.state)))
-    .range(d3.schemeDark2);
-
   const area = d3.area()
     .x(d => xScale(d.data[0]))
     .y0(d => yScale(d[0]))
