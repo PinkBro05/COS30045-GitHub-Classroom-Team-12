@@ -107,9 +107,11 @@ function drawBarChart(svg, data) {
 
 function drawMapAndBar(selector, data) {
 
-  svg = d3.select(selector).append('svg');
+  data = data.sort((a, b) => d3.ascending(a.data, b.data));
+
+  const svg = d3.select(selector).append('svg');
   svg.selectAll("*").remove(); // Clear existing content
-  svg.attr('viewBox', `0 0 800 750`); // Different viewBox for better fit for map
+  svg.attr('viewBox', [0, 0, 800, 750]); // Different viewBox for better fit for map
 
   drawAustraliaMap(svg, data);
 
