@@ -1,0 +1,99 @@
+"JURISDICTION","LOCATION","AGE_GROUP","METRIC","DETECTION_METHOD","Sum(FINES)","Sum(ARRESTS)","Sum(CHARGES)"
+"ACT","Major Cities of Australia","0-16","mobile_phone_use","Police issued",10,,
+"ACT","Major Cities of Australia","17-25","mobile_phone_use","Police issued",82,,
+"ACT","Major Cities of Australia","26-39","mobile_phone_use","Police issued",110,,
+"ACT","Major Cities of Australia","40-64","mobile_phone_use","Police issued",79,,
+"ACT","Major Cities of Australia","65 and over","mobile_phone_use","Police issued",7,,
+"NSW","Inner Regional Australia","0-16","mobile_phone_use","Police issued",11,,0
+"NSW","Inner Regional Australia","17-25","mobile_phone_use","Police issued",521,,7
+"NSW","Inner Regional Australia","26-39","mobile_phone_use","Police issued",680,,7
+"NSW","Inner Regional Australia","40-64","mobile_phone_use","Police issued",527,,8
+"NSW","Inner Regional Australia","65 and over","mobile_phone_use","Police issued",62,,0
+"NSW","Major Cities of Australia","0-16","mobile_phone_use","Police issued",7,,1
+"NSW","Major Cities of Australia","17-25","mobile_phone_use","Police issued",3496,,45
+"NSW","Major Cities of Australia","26-39","mobile_phone_use","Police issued",4184,,72
+"NSW","Major Cities of Australia","40-64","mobile_phone_use","Police issued",3035,,38
+"NSW","Major Cities of Australia","65 and over","mobile_phone_use","Police issued",301,,1
+"NSW","Outer Regional Australia","0-16","mobile_phone_use","Police issued",0,,1
+"NSW","Outer Regional Australia","17-25","mobile_phone_use","Police issued",73,,3
+"NSW","Outer Regional Australia","26-39","mobile_phone_use","Police issued",114,,1
+"NSW","Outer Regional Australia","40-64","mobile_phone_use","Police issued",98,,0
+"NSW","Outer Regional Australia","65 and over","mobile_phone_use","Police issued",11,,0
+"NSW","Remote Australia","17-25","mobile_phone_use","Police issued",3,,1
+"NSW","Remote Australia","26-39","mobile_phone_use","Police issued",11,,0
+"NSW","Remote Australia","40-64","mobile_phone_use","Police issued",2,,0
+"NSW","Remote Australia","65 and over","mobile_phone_use","Police issued",2,,0
+"NSW","Unknown","17-25","mobile_phone_use","Police issued",46,,0
+"NSW","Unknown","26-39","mobile_phone_use","Police issued",65,,1
+"NSW","Unknown","40-64","mobile_phone_use","Police issued",28,,1
+"NSW","Unknown","65 and over","mobile_phone_use","Police issued",3,,0
+"NSW","Unknown","Unknown","mobile_phone_use","Fixed or mobile camera",202757,,
+"NSW","Very Remote Australia","17-25","mobile_phone_use","Police issued",2,,0
+"NSW","Very Remote Australia","26-39","mobile_phone_use","Police issued",1,,0
+"NSW","Very Remote Australia","40-64","mobile_phone_use","Police issued",2,,0
+"NT","Unknown","17-25","mobile_phone_use","Police issued",41,2,6
+"NT","Unknown","26-39","mobile_phone_use","Police issued",90,1,2
+"NT","Unknown","40-64","mobile_phone_use","Police issued",64,0,0
+"NT","Unknown","65 and over","mobile_phone_use","Police issued",10,2,6
+"QLD","Unknown","Unknown","mobile_phone_use","Fixed or mobile camera",77213,,
+"QLD","Unknown","Unknown","mobile_phone_use","Police issued",3079,,
+"SA","Unknown","0-16","mobile_phone_use","Police issued",3,,
+"SA","Unknown","17-25","mobile_phone_use","Police issued",1387,,
+"SA","Unknown","26-39","mobile_phone_use","Police issued",2272,,
+"SA","Unknown","40-64","mobile_phone_use","Police issued",1805,,
+"SA","Unknown","65 and over","mobile_phone_use","Police issued",302,,
+"SA","Unknown","Unknown","mobile_phone_use","Police issued",0,,
+"TAS","Unknown","0-16","mobile_phone_use","Police issued",0,,0
+"TAS","Unknown","17-25","mobile_phone_use","Fixed or mobile camera",80,,0
+"TAS","Unknown","17-25","mobile_phone_use","Police issued",360,,13
+"TAS","Unknown","26-39","mobile_phone_use","Fixed or mobile camera",361,,0
+"TAS","Unknown","26-39","mobile_phone_use","Police issued",656,,21
+"TAS","Unknown","40-64","mobile_phone_use","Fixed or mobile camera",374,,0
+"TAS","Unknown","40-64","mobile_phone_use","Police issued",463,,3
+"TAS","Unknown","65 and over","mobile_phone_use","Fixed or mobile camera",55,,0
+"TAS","Unknown","65 and over","mobile_phone_use","Police issued",79,,0
+"VIC","Inner Regional Australia","0-16","mobile_phone_use","Police issued",2,,
+"VIC","Inner Regional Australia","17-25","mobile_phone_use","Mobile camera",181,,
+"VIC","Inner Regional Australia","17-25","mobile_phone_use","Police issued",411,,
+"VIC","Inner Regional Australia","26-39","mobile_phone_use","Mobile camera",830,,
+"VIC","Inner Regional Australia","26-39","mobile_phone_use","Police issued",819,,
+"VIC","Inner Regional Australia","40-64","mobile_phone_use","Mobile camera",989,,
+"VIC","Inner Regional Australia","40-64","mobile_phone_use","Police issued",618,,
+"VIC","Inner Regional Australia","65 and over","mobile_phone_use","Mobile camera",170,,
+"VIC","Inner Regional Australia","65 and over","mobile_phone_use","Police issued",79,,
+"VIC","Inner Regional Australia","Unknown","mobile_phone_use","Mobile camera",1498,,
+"VIC","Inner Regional Australia","Unknown","mobile_phone_use","Police issued",1,,
+"VIC","Major Cities of Australia","0-16","mobile_phone_use","Police issued",4,,
+"VIC","Major Cities of Australia","17-25","mobile_phone_use","Mobile camera",701,,
+"VIC","Major Cities of Australia","17-25","mobile_phone_use","Police issued",3031,,
+"VIC","Major Cities of Australia","26-39","mobile_phone_use","Mobile camera",3934,,
+"VIC","Major Cities of Australia","26-39","mobile_phone_use","Police issued",7255,,
+"VIC","Major Cities of Australia","40-64","mobile_phone_use","Mobile camera",4824,,
+"VIC","Major Cities of Australia","40-64","mobile_phone_use","Police issued",5449,,
+"VIC","Major Cities of Australia","65 and over","mobile_phone_use","Mobile camera",698,,
+"VIC","Major Cities of Australia","65 and over","mobile_phone_use","Police issued",585,,
+"VIC","Major Cities of Australia","Unknown","mobile_phone_use","Mobile camera",15807,,
+"VIC","Major Cities of Australia","Unknown","mobile_phone_use","Police issued",7,,
+"VIC","Outer Regional Australia","17-25","mobile_phone_use","Police issued",90,,
+"VIC","Outer Regional Australia","26-39","mobile_phone_use","Police issued",193,,
+"VIC","Outer Regional Australia","40-64","mobile_phone_use","Mobile camera",3,,
+"VIC","Outer Regional Australia","40-64","mobile_phone_use","Police issued",154,,
+"VIC","Outer Regional Australia","65 and over","mobile_phone_use","Police issued",31,,
+"VIC","Outer Regional Australia","Unknown","mobile_phone_use","Mobile camera",8,,
+"VIC","Unknown","17-25","mobile_phone_use","Mobile camera",11,,
+"VIC","Unknown","17-25","mobile_phone_use","Police issued",15,,
+"VIC","Unknown","26-39","mobile_phone_use","Mobile camera",79,,
+"VIC","Unknown","26-39","mobile_phone_use","Police issued",52,,
+"VIC","Unknown","40-64","mobile_phone_use","Mobile camera",98,,
+"VIC","Unknown","40-64","mobile_phone_use","Police issued",27,,
+"VIC","Unknown","65 and over","mobile_phone_use","Mobile camera",9,,
+"VIC","Unknown","Unknown","mobile_phone_use","Mobile camera",883,,
+"WA","Unknown","0-16","mobile_phone_use","Unknown",,0,1
+"WA","Unknown","17-25","mobile_phone_use","Police issued",706,,
+"WA","Unknown","17-25","mobile_phone_use","Unknown",,1,34
+"WA","Unknown","26-39","mobile_phone_use","Police issued",1512,,
+"WA","Unknown","26-39","mobile_phone_use","Unknown",,3,66
+"WA","Unknown","40-64","mobile_phone_use","Police issued",1227,,
+"WA","Unknown","40-64","mobile_phone_use","Unknown",,3,50
+"WA","Unknown","65 and over","mobile_phone_use","Police issued",147,,
+"WA","Unknown","65 and over","mobile_phone_use","Unknown",,0,6
