@@ -1,135 +1,111 @@
 // Stacked Area Chart for Infringement Categories Over Time
-let stackedAreaData = [];
-let filteredMetrics = new Set();
-let availableJurisdictions = new Set();
-let currentMetricFilter = 'all';
-let selectedJurisdiction = 'all';
 
-// Fallback dimensions in case shared-constants.js isn't loaded
-const chartDimensions = {
-    margin: typeof margin !== 'undefined' ? margin : { top: 40, right: 200, bottom: 80, left: 100 },
-    width: typeof width !== 'undefined' ? width : 1200,
-    height: typeof height !== 'undefined' ? height : 600
-};
-chartDimensions.inner = {
-    width: chartDimensions.width - chartDimensions.margin.left - chartDimensions.margin.right,
-    height: chartDimensions.height - chartDimensions.margin.top - chartDimensions.margin.bottom
-};
-
-// Number formatting utility
-function formatNumber(num) {
-    if (num >= 1000000) {
-        return (num / 1000000).toFixed(1) + 'M';
-    } else if (num >= 1000) {
-        return (num / 1000).toFixed(1) + 'K';
+// State management
+const StackedAreaChart = {
+    data: [],
+    filteredMetrics: new Set(),
+    availableJurisdictions: new Set(),
+    currentMetricFilter: 'all',
+    selectedJurisdiction: 'all',
+    tooltip: null,
+    
+    // Initialize chart
+    init() {
+        this.loadData();
+    },
+    
+    // Load data method
+    loadData() {
+        loadStackedAreaData();
+    },
+    
+    // Reset filters
+    resetFilters() {
+        this.currentMetricFilter = 'all';
+        this.selectedJurisdiction = 'all';
     }
-    return num.toLocaleString();
-}
-
-// Color scheme using Okabe-Ito palette for color-blind safety
-const jurisdictionColors = {
-    'NSW': '#E69F00',  // Orange
-    'VIC': '#56B4E9',  // Sky Blue
-    'QLD': '#009E73',  // Bluish Green
-    'SA': '#F0E442',   // Yellow
-    'WA': '#0072B2',   // Blue
-    'TAS': '#D55E00',  // Vermillion
-    'NT': '#CC79A7',   // Reddish Purple
-    'ACT': '#999999'   // Gray
 };
 
-// Load and process all data files
+// Configuration
+const CHART_CONFIG = {
+    dimensions: typeof stackedAreaDimensions !== 'undefined' ? stackedAreaDimensions : {
+        margin: { top: 40, right: 200, bottom: 80, left: 100 },
+        width: 1200,
+        height: 600,
+        inner: { width: 1000, height: 480 }
+    },
+    padding: 2,
+    colors: typeof jurisdictionColors !== 'undefined' ? jurisdictionColors : {
+        'NSW': '#E69F00', 'VIC': '#56B4E9', 'QLD': '#009E73', 'SA': '#F0E442',
+        'WA': '#0072B2', 'TAS': '#D55E00', 'NT': '#CC79A7', 'ACT': '#999999'
+    },
+    referenceLines: typeof referenceLines !== 'undefined' ? referenceLines : [
+        { year: 2021, label: '2021-30 National Road Safety Strategy', color: '#CC0000', dasharray: '5,5' },
+        { year: 2023, label: '2023-25 Action Plan', color: '#0066CC', dasharray: '3,3' }
+    ]
+};
+
+// Data loading and processing
 async function loadStackedAreaData() {
     try {
         console.log('Loading stacked area data...');
         
-        const [speedMobileData, posBreatheData, posDrugData, drugBreathConductedData] = await Promise.all([
-            d3.csv('data/annual_speed_mobile.csv'),
-            d3.csv('data/annual_pos_breath.csv'),
-            d3.csv('data/annual_pos_drug.csv'),
-            d3.csv('data/annual_drug_breath_conducted.csv')
-        ]);
+        const dataFiles = [
+            { url: 'data/annual_speed_mobile.csv', valueColumn: 'Sum(FINES)' },
+            { url: 'data/annual_pos_breath.csv', valueColumn: 'Sum(COUNT)' },
+            { url: 'data/annual_pos_drug.csv', valueColumn: 'Sum(COUNT)' },
+            { url: 'data/annual_drug_breath_conducted.csv', valueColumn: 'Sum(COUNT)' }
+        ];
 
-        console.log('Data loaded successfully:', {
-            speedMobile: speedMobileData.length,
-            posBreath: posBreatheData.length,
-            posDrug: posDrugData.length,
-            drugBreathConducted: drugBreathConductedData.length
-        });
+        const datasets = await Promise.all(
+            dataFiles.map(async ({ url, valueColumn }) => {
+                const data = await d3.csv(url);
+                return processCSVData(data, valueColumn);
+            })
+        );
 
-        // Process speed/mobile data (use Sum(FINES))
-        const processedSpeedMobile = speedMobileData.map(d => ({
-            year: +d.YEAR,
-            jurisdiction: d.JURISDICTION,
-            metric: d.METRIC,
-            value: +d["Sum(FINES)"] || 0
-        })).filter(d => !isNaN(d.year) && !isNaN(d.value));
+        console.log('Data loaded successfully:', datasets.map(d => d.length));
 
-        // Process positive breath data (use Sum(COUNT))
-        const processedPosBreath = posBreatheData.map(d => ({
-            year: +d.YEAR,
-            jurisdiction: d.JURISDICTION,
-            metric: d.METRIC,
-            value: +d["Sum(COUNT)"] || 0
-        })).filter(d => !isNaN(d.year) && !isNaN(d.value));
+        // Combine all data and filter out unlicensed_driving
+        StackedAreaChart.data = datasets
+            .flat()
+            .filter(d => d.metric !== 'unlicensed_driving');
 
-        // Process positive drug data (use Sum(COUNT))
-        const processedPosDrug = posDrugData.map(d => ({
-            year: +d.YEAR,
-            jurisdiction: d.JURISDICTION,
-            metric: d.METRIC,
-            value: +d["Sum(COUNT)"] || 0
-        })).filter(d => !isNaN(d.year) && !isNaN(d.value));
+        // Update state
+        StackedAreaChart.filteredMetrics = new Set(StackedAreaChart.data.map(d => d.metric));
+        StackedAreaChart.availableJurisdictions = new Set(StackedAreaChart.data.map(d => d.jurisdiction));
 
-        // Process drug/breath conducted data (use Sum(COUNT))
-        const processedDrugBreathConducted = drugBreathConductedData.map(d => ({
-            year: +d.YEAR,
-            jurisdiction: d.JURISDICTION,
-            metric: d.METRIC,
-            value: +d["Sum(COUNT)"] || 0
-        })).filter(d => !isNaN(d.year) && !isNaN(d.value));        // Combine all data and filter out unlicensed_driving
-        stackedAreaData = [
-            ...processedSpeedMobile,
-            ...processedPosBreath,
-            ...processedPosDrug,
-            ...processedDrugBreathConducted
-        ].filter(d => d.metric !== 'unlicensed_driving');console.log('Processed data:', stackedAreaData.length, 'records');
-        console.log('Sample data records:', stackedAreaData.slice(0, 5));
-        console.log('Year range:', d3.extent(stackedAreaData, d => d.year));
-        console.log('Unique years:', [...new Set(stackedAreaData.map(d => d.year))].sort());        // Get all unique metrics and jurisdictions for filtering
-        filteredMetrics = new Set(stackedAreaData.map(d => d.metric));
-        availableJurisdictions = new Set(stackedAreaData.map(d => d.jurisdiction));
-        console.log('Available metrics:', Array.from(filteredMetrics));
-        console.log('Available jurisdictions:', Array.from(availableJurisdictions));
-        
-        // Debug unlicensed_driving data specifically (should be empty now)
-        const unlicensedData = stackedAreaData.filter(d => d.metric === 'unlicensed_driving');
-        console.log('Unlicensed driving data after filter:', unlicensedData.length, 'records');        // Draw initial chart
-        drawStackedArea('#stacked-area', stackedAreaData);
+        console.log('Processed data:', StackedAreaChart.data.length, 'records');
+        console.log('Available metrics:', Array.from(StackedAreaChart.filteredMetrics));
+        console.log('Available jurisdictions:', Array.from(StackedAreaChart.availableJurisdictions));
+
+        // Initialize chart
+        drawStackedArea('#stacked-area', StackedAreaChart.data);
         createMetricFilter();
 
     } catch (error) {
         console.error('Error loading stacked area data:', error);
-        
-        // Show error message to user
-        const container = d3.select('#stacked-area');
-        container.selectAll('*').remove();
-        container.append('div')
-            .style('text-align', 'center')
-            .style('padding', '50px')
-            .style('color', '#666')
-            .html(`
-                <h3>Error Loading Data</h3>
-                <p>Unable to load the infringement data. Please check the console for details.</p>
-                <p><small>Error: ${error.message}</small></p>
-            `);
+        displayError('#stacked-area', error.message);
     }
 }
 
+function displayError(selector, message) {
+    const container = d3.select(selector);
+    container.selectAll('*').remove();
+    container.append('div')
+        .style('text-align', 'center')
+        .style('padding', '50px')
+        .style('color', '#666')
+        .html(`
+            <h3>Error Loading Data</h3>
+            <p>Unable to load the infringement data. Please check the console for details.</p>
+            <p><small>Error: ${message}</small></p>
+        `);
+}
+
+// UI Components
 function createMetricFilter() {
     const container = d3.select('#stacked-area').node().parentNode;
-    
-    // Remove existing filter if any
     d3.select(container).select('.metric-filter').remove();
     
     const filterDiv = d3.select(container)
@@ -148,28 +124,53 @@ function createMetricFilter() {
         .style('border-radius', '4px')
         .style('border', '1px solid #ccc')
         .on('change', function() {
-            currentMetricFilter = this.value;
-            drawStackedArea('#stacked-area', stackedAreaData);
+            StackedAreaChart.currentMetricFilter = this.value;
+            drawStackedArea('#stacked-area', StackedAreaChart.data);
         });
 
     // Add options
-    select.append('option')
-        .attr('value', 'all')
-        .text('All Metrics');
-
-    Array.from(filteredMetrics).sort().forEach(metric => {
+    select.append('option').attr('value', 'all').text('All Metrics');
+    Array.from(StackedAreaChart.filteredMetrics).sort().forEach(metric => {
         select.append('option')
             .attr('value', metric)
             .text(metric.replace(/_/g, ' ').replace(/\b\w/g, l => l.toUpperCase()));
     });
 }
 
+// Data processing for chart
+function prepareChartData(data) {
+    let filteredData = data;
+    if (StackedAreaChart.currentMetricFilter !== 'all') {
+        filteredData = data.filter(d => d.metric === StackedAreaChart.currentMetricFilter);
+    }
+
+    if (filteredData.length === 0) return null;
+
+    const aggregatedData = d3.rollup(
+        filteredData,
+        v => d3.sum(v, d => d.value),
+        d => d.year,
+        d => d.jurisdiction
+    );
+
+    const years = Array.from(aggregatedData.keys()).sort();
+    const jurisdictions = Array.from(StackedAreaChart.availableJurisdictions).sort();
+
+    const processedData = years.map(year => {
+        const yearData = { year };
+        jurisdictions.forEach(jurisdiction => {
+            yearData[jurisdiction] = aggregatedData.get(year)?.get(jurisdiction) || 0;
+        });
+        return yearData;
+    });
+
+    return { processedData, years, jurisdictions };
+}
+
+// Main drawing function
 function drawStackedArea(selector, data) {
     console.log('Drawing stacked area chart...');
-    console.log('Selector:', selector);
-    console.log('D3 version:', d3.version);
     
-    // Clear existing content
     const container = d3.select(selector);
     if (container.empty()) {
         console.error('Container not found:', selector);
@@ -178,54 +179,57 @@ function drawStackedArea(selector, data) {
     
     container.selectAll("*").remove();
     
-    // Create SVG element
-    const svg = container.append('svg')
-        .attr('class', 'stacked-area-chart')
-        .attr('viewBox', [0, 0, chartDimensions.width, chartDimensions.height]);// Filter data by metric if needed
-    let filteredData = data;
-    if (currentMetricFilter !== 'all') {
-        filteredData = data.filter(d => d.metric === currentMetricFilter);
+    const chartData = prepareChartData(data);
+    if (!chartData) {
+        displayNoDataMessage(container);
+        return;
     }
 
-    console.log('Filtered data length:', filteredData.length);
+    const { processedData, years, jurisdictions } = chartData;
+    const svg = createSVG(container);
+    const { xScale, yScale } = createScales(years, processedData, jurisdictions);
+    const { stackedData, area } = createStackedData(processedData, jurisdictions, xScale, yScale);
+    
+    const chart = svg.append('g')
+        .attr('transform', `translate(${CHART_CONFIG.dimensions.margin.left}, ${CHART_CONFIG.dimensions.margin.top})`);
 
-    if (filteredData.length === 0) {
-        svg.append('text')
-            .attr('x', chartDimensions.width / 2)
-            .attr('y', chartDimensions.height / 2)
-            .attr('text-anchor', 'middle')
-            .style('font-size', '16px')
-            .text('No data available for the selected filter');
-        return;
-    }    // Aggregate data by year and jurisdiction
+    StackedAreaChart.tooltip = createTooltip('stacked-area-tooltip');
+    
+    drawAreas(chart, stackedData, area, processedData);
+    drawAxes(chart, xScale, yScale);
+    drawReferenceLines(chart, xScale, years);
+    drawLegend(svg, jurisdictions);
+}
 
-    const aggregatedData = d3.rollup(
-        filteredData,
-        v => d3.sum(v, d => d.value),
-        d => d.year,
-        d => d.jurisdiction
-    );    // Convert to array format suitable for stacking
-    const years = Array.from(aggregatedData.keys()).sort();
-    const jurisdictions = Array.from(availableJurisdictions).sort(); // Always show all jurisdictions
+function displayNoDataMessage(container) {
+    container.append('div')
+        .style('text-align', 'center')
+        .style('padding', '50px')
+        .style('color', '#666')
+        .html('<h3>No data available for the selected filter</h3>');
+}
 
-    console.log('Processing years:', years);
-    console.log('Processing jurisdictions:', jurisdictions);    const processedData = years.map(year => {
-        const yearData = { year };
-        jurisdictions.forEach(jurisdiction => {
-            yearData[jurisdiction] = aggregatedData.get(year)?.get(jurisdiction) || 0;
-        });
-        return yearData;
-    });
+function createSVG(container) {
+    return container.append('svg')
+        .attr('class', 'stacked-area-chart')
+        .attr('viewBox', [0, 0, CHART_CONFIG.dimensions.width, CHART_CONFIG.dimensions.height]);
+}
 
-    console.log('Processed data for chart:', processedData.slice(0, 3));// Set up scales
+function createScales(years, processedData, jurisdictions) {
     const xScale = d3.scaleLinear()
         .domain(d3.extent(years))
-        .range([0, chartDimensions.inner.width]);
-        const yScale = d3.scaleLinear()
+        .range([0, CHART_CONFIG.dimensions.inner.width]);
+        
+    const yScale = d3.scaleLinear()
         .domain([0, d3.max(processedData, d => 
             d3.sum(jurisdictions, jurisdiction => d[jurisdiction])
-        ) + (jurisdictions.length * 2)]) // Add padding to domain
-        .range([chartDimensions.inner.height, 0]);// Create stack generator with padding
+        ) + (jurisdictions.length * 2)])
+        .range([CHART_CONFIG.dimensions.inner.height, 0]);
+        
+    return { xScale, yScale };
+}
+
+function createStackedData(processedData, jurisdictions, xScale, yScale) {
     const stack = d3.stack()
         .keys(jurisdictions)
         .order(d3.stackOrderNone)
@@ -233,145 +237,122 @@ function drawStackedArea(selector, data) {
 
     const stackedData = stack(processedData);
     
-    // Add padding between stack layers for visual separation
-    const padding = 2; // pixels of padding between areas
+    // Add padding between stack layers
     stackedData.forEach((layer, layerIndex) => {
         layer.forEach(d => {
             if (layerIndex > 0) {
-                d[0] += layerIndex * padding;
-                d[1] += layerIndex * padding;
+                d[0] += layerIndex * CHART_CONFIG.padding;
+                d[1] += layerIndex * CHART_CONFIG.padding;
             }
         });
-    });    // Create area generator (no interpolation for accurate data representation)
+    });
+
     const area = d3.area()
         .x(d => xScale(d.data.year))
         .y0(d => yScale(d[0]))
         .y1(d => yScale(d[1]))
-        .curve(d3.curveLinear);// Create chart group
-    const chart = svg.append('g')
-        .attr('transform', `translate(${chartDimensions.margin.left}, ${chartDimensions.margin.top})`);
+        .curve(d3.curveLinear);
 
-    // Add tooltip
-    const tooltip = d3.select('body').append('div')
-        .attr('class', 'tooltip')
-        .style('opacity', 0)
-        .style('position', 'absolute')
-        .style('background', 'rgba(0, 0, 0, 0.8)')
-        .style('color', 'white')
-        .style('padding', '10px')
-        .style('border-radius', '4px')
-        .style('font-size', '12px')
-        .style('pointer-events', 'none');    // Draw areas with borders and spacing
+    return { stackedData, area };
+}// Drawing helper functions
+function drawAreas(chart, stackedData, area, processedData) {
+    const dataAccessor = (d, event, element) => {
+        const [mouseX] = d3.pointer(event, element);
+        const xPos = d3.scaleLinear()
+            .domain(d3.extent(processedData, pd => pd.year))
+            .range([0, CHART_CONFIG.dimensions.inner.width])
+            .invert(mouseX);
+        const closestYear = Math.round(xPos);
+        const yearData = processedData.find(item => item.year === closestYear);
+        const value = yearData ? yearData[d.key] : 0;
+        
+        return `
+            <strong>${d.key}</strong><br/>
+            Year: ${closestYear}<br/>
+            Value: ${formatNumber(value)}
+        `;
+    };
+
+    const handlers = createMouseHandlers(StackedAreaChart.tooltip, dataAccessor);
+
     chart.selectAll('.area')
         .data(stackedData)
         .join('path')
         .attr('class', 'area')
         .attr('d', area)
-        .attr('fill', d => jurisdictionColors[d.key] || '#69b3a2')
+        .attr('fill', d => CHART_CONFIG.colors[d.key] || '#69b3a2')
         .attr('stroke', '#ffffff')
         .attr('stroke-width', 2)
-        .style('opacity', d => selectedJurisdiction === 'all' || selectedJurisdiction === d.key ? 0.8 : 0.3)
-        .style('transition', 'opacity 0.3s ease').on('mouseover', function(event, d) {
-            d3.select(this).style('opacity', 1);
-            tooltip.transition().duration(200).style('opacity', .9);
-              // Find the data point closest to mouse position
-            const [mouseX] = d3.pointer(event, this);
-            const xPos = xScale.invert(mouseX);
-            const closestYear = Math.round(xPos);
-            const yearData = processedData.find(item => item.year === closestYear);
-            const value = yearData ? yearData[d.key] : 0;
-            
-            tooltip.html(`
-                <strong>${d.key}</strong><br/>
-                Year: ${closestYear}<br/>
-                Value: ${formatNumber(value)}
-            `)
-                .style('left', (event.pageX + 10) + 'px')
-                .style('top', (event.pageY - 28) + 'px');
-        })        .on('mousemove', function(event, d) {            // Update tooltip position and content on mouse move
-            const [mouseX] = d3.pointer(event, this);
-            const xPos = xScale.invert(mouseX);
-            const closestYear = Math.round(xPos);
-            const yearData = processedData.find(item => item.year === closestYear);
-            const value = yearData ? yearData[d.key] : 0;
-            
-            tooltip.html(`
-                <strong>${d.key}</strong><br/>
-                Year: ${closestYear}<br/>
-                Value: ${formatNumber(value)}
-            `)
-                .style('left', (event.pageX + 10) + 'px')
-                .style('top', (event.pageY - 28) + 'px');
-        })
-        .on('mouseout', function(event, d) {
-            d3.select(this).style('opacity', 0.8);
-            tooltip.transition().duration(500).style('opacity', 0);
-        });    // Add x-axis
+        .style('opacity', d => StackedAreaChart.selectedJurisdiction === 'all' || StackedAreaChart.selectedJurisdiction === d.key ? 0.8 : 0.3)
+        .style('transition', 'opacity 0.3s ease')
+        .on('mouseover', handlers.mouseover)
+        .on('mousemove', handlers.mousemove)
+        .on('mouseout', handlers.mouseout);
+}
+
+function drawAxes(chart, xScale, yScale) {
+    // X-axis
     chart.append('g')
-        .attr('transform', `translate(0, ${chartDimensions.inner.height})`)
+        .attr('transform', `translate(0, ${CHART_CONFIG.dimensions.inner.height})`)
         .call(d3.axisBottom(xScale).tickFormat(d3.format('d')))
         .append('text')
-        .attr('x', chartDimensions.inner.width / 2)
+        .attr('x', CHART_CONFIG.dimensions.inner.width / 2)
         .attr('y', 40)
         .attr('fill', 'black')
         .style('text-anchor', 'middle')
         .style('font-size', '14px')
-        .text('Year');    // Add y-axis
+        .text('Year');
+
+    // Y-axis
     chart.append('g')
         .call(d3.axisLeft(yScale))
         .append('text')
         .attr('transform', 'rotate(-90)')
         .attr('y', -60)
-        .attr('x', -chartDimensions.inner.height / 2)
-        .attr('fill', 'black')        .style('text-anchor', 'middle')
+        .attr('x', -CHART_CONFIG.dimensions.inner.height / 2)
+        .attr('fill', 'black')
+        .style('text-anchor', 'middle')
         .style('font-size', '14px')
         .text('Count/Fines');
+}
 
-    // Add reference lines for National Road Safety Strategy periods
-    const referenceLines = [
-        { year: 2021, label: '2021-30 National Road Safety Strategy', color: '#CC0000', dasharray: '5,5' },
-        { year: 2023, label: '2023-25 Action Plan', color: '#0066CC', dasharray: '3,3' }
-    ];
-
-    referenceLines.forEach(line => {
+function drawReferenceLines(chart, xScale, years) {
+    CHART_CONFIG.referenceLines.forEach(line => {
         if (line.year >= d3.min(years) && line.year <= d3.max(years)) {
-            // Add vertical reference line
             chart.append('line')
                 .attr('x1', xScale(line.year))
                 .attr('x2', xScale(line.year))
                 .attr('y1', 0)
-                .attr('y2', chartDimensions.inner.height)
+                .attr('y2', CHART_CONFIG.dimensions.inner.height)
                 .attr('stroke', line.color)
                 .attr('stroke-width', 2)
                 .attr('stroke-dasharray', line.dasharray)
-                .style('opacity', 0.7);            // Add label for the reference line
+                .style('opacity', 0.7);
+
             chart.append('text')
                 .attr('x', xScale(line.year) - 80)
-                .attr('y', line.year === 2023 ? 30 : 15) // Move 2023 label down to avoid overlap
+                .attr('y', line.year === 2023 ? 30 : 15)
                 .attr('fill', line.color)
                 .style('font-size', '11px')
                 .style('font-weight', 'bold')
                 .text(line.label);
         }
-    });    // Add legend
+    });
+}
+
+function drawLegend(svg, jurisdictions) {
     const legend = svg.append('g')
-        .attr('transform', `translate(${chartDimensions.width - 47}, 190)`);
+        .attr('transform', `translate(${CHART_CONFIG.dimensions.width - 47}, 190)`);
 
     const legendItems = legend.selectAll('.legend-item')
         .data(jurisdictions)
         .join('g')
         .attr('class', 'legend-item')
         .attr('transform', (d, i) => `translate(0, ${i * 20})`)
-        .style('cursor', 'pointer')        .on('click', function(event, d) {
-            // Toggle jurisdiction selection
-            if (selectedJurisdiction === d) {
-                selectedJurisdiction = 'all';
-            } else {
-                selectedJurisdiction = d;
-            }
-            
-            // Redraw chart with new selection
-            drawStackedArea('#stacked-area', stackedAreaData);
+        .style('cursor', 'pointer')
+        .on('click', function(event, d) {
+            StackedAreaChart.selectedJurisdiction = StackedAreaChart.selectedJurisdiction === d ? 'all' : d;
+            drawStackedArea('#stacked-area', StackedAreaChart.data);
         })
         .on('mouseover', function(event, d) {
             d3.select(this).select('rect')
@@ -380,23 +361,23 @@ function drawStackedArea(selector, data) {
         })
         .on('mouseout', function(event, d) {
             d3.select(this).select('rect')
-                .attr('stroke', d => selectedJurisdiction === d ? '#333' : 'none')
-                .attr('stroke-width', d => selectedJurisdiction === d ? 2 : 0);
+                .attr('stroke', d => StackedAreaChart.selectedJurisdiction === d ? '#333' : 'none')
+                .attr('stroke-width', d => StackedAreaChart.selectedJurisdiction === d ? 2 : 0);
         });
 
     legendItems.append('rect')
         .attr('width', 15)
         .attr('height', 15)
-        .attr('fill', d => jurisdictionColors[d] || '#69b3a2')
-        .attr('stroke', d => selectedJurisdiction === d ? '#333' : 'none')
-        .attr('stroke-width', d => selectedJurisdiction === d ? 2 : 0);
+        .attr('fill', d => CHART_CONFIG.colors[d] || '#69b3a2')
+        .attr('stroke', d => StackedAreaChart.selectedJurisdiction === d ? '#333' : 'none')
+        .attr('stroke-width', d => StackedAreaChart.selectedJurisdiction === d ? 2 : 0);
 
     legendItems.append('text')
         .attr('x', 20)
         .attr('y', 12)
         .style('font-size', '12px')
-        .style('font-weight', d => selectedJurisdiction === d ? 'bold' : 'normal')
-        .style('fill', d => selectedJurisdiction === 'all' || selectedJurisdiction === d ? '#333' : '#999')
+        .style('font-weight', d => StackedAreaChart.selectedJurisdiction === d ? 'bold' : 'normal')
+        .style('fill', d => StackedAreaChart.selectedJurisdiction === 'all' || StackedAreaChart.selectedJurisdiction === d ? '#333' : '#999')
         .text(d => d);
 }
 
@@ -405,8 +386,8 @@ document.addEventListener('DOMContentLoaded', function() {
     console.log('DOM loaded, checking for stacked area container...');
     const container = document.getElementById('stacked-area');
     if (container) {
-        console.log('Stacked area container found, loading data...');
-        loadStackedAreaData();
+        console.log('Stacked area container found, initializing...');
+        StackedAreaChart.init();
     } else {
         console.error('Stacked area container not found!');
     }
