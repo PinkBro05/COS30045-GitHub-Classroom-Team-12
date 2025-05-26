@@ -7,7 +7,7 @@ const CHART_CONFIG = {
     height: 380,
     inner: { width: 630, height: 300 }
   },
-  padding: 2,
+  padding: 1,
   referenceLines: [
     { year: 2021, label: '2021-30 National Road Safety Strategy', color: '#CC0000', dasharray: '5,5' },
     { year: 2023, label: '2023-25 Action Plan', color: '#0066CC', dasharray: '3,3' }
@@ -139,16 +139,6 @@ function drawStackedArea(selector, data) {
 
   const stackedData = stack(groupedData);
 
-  // Add padding between stack layers
-  stackedData.forEach((layer, layerIndex) => {
-    layer.forEach(d => {
-      if (layerIndex > 0) {
-        d[0] += layerIndex * CHART_CONFIG.padding;
-        d[1] += layerIndex * CHART_CONFIG.padding;
-      }
-    });
-  });
-
   // Define scales
   const xScale = d3.scaleLinear()
     .domain(d3.extent(data, d => d.year))
@@ -158,6 +148,16 @@ function drawStackedArea(selector, data) {
     .domain([0, d3.max(stackedData.flat().flat())])
     .range([CHART_CONFIG.dimensions.inner.height, 0])
     .nice();
+
+  // Add padding between stack layers
+  stackedData.forEach((layer, layerIndex) => {
+    layer.forEach(d => {
+      if (layerIndex > 0) {
+        d[0] += layerIndex * yScale.invert(CHART_CONFIG.dimensions.inner.height - CHART_CONFIG.padding);
+        d[1] += layerIndex * yScale.invert(CHART_CONFIG.dimensions.inner.height - CHART_CONFIG.padding);
+      }
+    });
+  });
 
   // Define areas from stacked data
   const area = d3.area()
@@ -175,9 +175,7 @@ function drawStackedArea(selector, data) {
     .join('path')
     .attr('class', 'area')
     .attr('d', area)
-    .attr('fill', d => stateColorScale(d.key) || '#69b3a2')
-    .attr('stroke', '#fff')
-    .attr('stroke-width', 1);
+    .attr('fill', d => stateColorScale(d.key) || '#69b3a2');
 
   // X-axis
   chart.append('g')
