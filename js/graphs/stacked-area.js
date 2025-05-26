@@ -4,7 +4,7 @@ const CHART_CONFIG = {
   dimensions: {
     margin: { top: 40, right: 200, bottom: 80, left: 100 },
     width: 800,
-    height: 400,
+    height: 380,
     inner: { width: 630, height: 300 }
   },
   padding: 2,
@@ -130,11 +130,12 @@ function drawStackedArea(selector, data) {
   svg.selectAll("*").remove();
   svg.attr('viewBox', [0, 0, CHART_CONFIG.dimensions.width, CHART_CONFIG.dimensions.height]);
 
+  // Group and stack data for stacked area chart
   const groupedData = d3.index(data, d => d.year, d => d.state);
 
   const stack = d3.stack()
     .keys(d3.union(data.map(d => d.state)))
-    .value(([, group], key) => group.get(key)?.data || 0);;
+    .value(([, group], key) => group.get(key)?.data || 0);
 
   const stackedData = stack(groupedData);
 
@@ -148,6 +149,7 @@ function drawStackedArea(selector, data) {
     });
   });
 
+  // Define scales
   const xScale = d3.scaleLinear()
     .domain(d3.extent(data, d => d.year))
     .range([0, CHART_CONFIG.dimensions.inner.width]);
@@ -157,6 +159,7 @@ function drawStackedArea(selector, data) {
     .range([CHART_CONFIG.dimensions.inner.height, 0])
     .nice();
 
+  // Define areas from stacked data
   const area = d3.area()
     .x(d => xScale(d.data[0]))
     .y0(d => yScale(d[0]))
@@ -166,6 +169,7 @@ function drawStackedArea(selector, data) {
   const chart = svg.append('g')
   .attr('transform', `translate(${CHART_CONFIG.dimensions.margin.left}, ${CHART_CONFIG.dimensions.margin.top})`);
 
+  // Draw areas
   chart.selectAll('.area')
     .data(stackedData)
     .join('path')
@@ -221,6 +225,7 @@ function drawStackedArea(selector, data) {
     }
   });
 
+  // Draw legends
   const legend = svg.append('g')
     .attr('transform', `translate(${CHART_CONFIG.dimensions.width - 47}, 150)`);
 
