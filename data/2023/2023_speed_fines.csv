@@ -1,0 +1,214 @@
+"JURISDICTION","LOCATION","AGE_GROUP","METRIC","DETECTION_METHOD","Sum(FINES)","Sum(ARRESTS)","Sum(CHARGES)"
+"ACT","Major Cities of Australia",,"speed_fines","Fixed camera",907,,
+"ACT","Major Cities of Australia",,"speed_fines","Mobile camera",278,,
+"ACT","Major Cities of Australia","0-16","speed_fines","Fixed camera",15,,
+"ACT","Major Cities of Australia","0-16","speed_fines","Mobile camera",8,,
+"ACT","Major Cities of Australia","0-16","speed_fines","Police issued",35,,
+"ACT","Major Cities of Australia","17-25","speed_fines","Fixed camera",5979,,
+"ACT","Major Cities of Australia","17-25","speed_fines","Mobile camera",2325,,
+"ACT","Major Cities of Australia","17-25","speed_fines","Police issued",703,,
+"ACT","Major Cities of Australia","26-39","speed_fines","Fixed camera",13785,,
+"ACT","Major Cities of Australia","26-39","speed_fines","Mobile camera",5336,,
+"ACT","Major Cities of Australia","26-39","speed_fines","Police issued",829,,
+"ACT","Major Cities of Australia","40-64","speed_fines","Fixed camera",23937,,
+"ACT","Major Cities of Australia","40-64","speed_fines","Mobile camera",7286,,
+"ACT","Major Cities of Australia","40-64","speed_fines","Police issued",613,,
+"ACT","Major Cities of Australia","65 and over","speed_fines","Fixed camera",7352,,
+"ACT","Major Cities of Australia","65 and over","speed_fines","Mobile camera",2518,,
+"ACT","Major Cities of Australia","65 and over","speed_fines","Police issued",55,,
+"NSW","Inner Regional Australia","0-16","speed_fines","Police issued",61,,9
+"NSW","Inner Regional Australia","17-25","speed_fines","Police issued",17215,,138
+"NSW","Inner Regional Australia","26-39","speed_fines","Police issued",26714,,144
+"NSW","Inner Regional Australia","40-64","speed_fines","Police issued",27528,,58
+"NSW","Inner Regional Australia","65 and over","speed_fines","Police issued",6294,,2
+"NSW","Major Cities of Australia","0-16","speed_fines","Police issued",49,,23
+"NSW","Major Cities of Australia","17-25","speed_fines","Police issued",21353,,422
+"NSW","Major Cities of Australia","26-39","speed_fines","Police issued",24807,,333
+"NSW","Major Cities of Australia","40-64","speed_fines","Police issued",21636,,150
+"NSW","Major Cities of Australia","65 and over","speed_fines","Police issued",3070,,1
+"NSW","Outer Regional Australia","0-16","speed_fines","Police issued",14,,4
+"NSW","Outer Regional Australia","17-25","speed_fines","Police issued",4374,,26
+"NSW","Outer Regional Australia","26-39","speed_fines","Police issued",7449,,30
+"NSW","Outer Regional Australia","40-64","speed_fines","Police issued",8871,,17
+"NSW","Outer Regional Australia","65 and over","speed_fines","Police issued",2346,,4
+"NSW","Remote Australia","17-25","speed_fines","Police issued",282,,8
+"NSW","Remote Australia","26-39","speed_fines","Police issued",555,,4
+"NSW","Remote Australia","40-64","speed_fines","Police issued",664,,3
+"NSW","Remote Australia","65 and over","speed_fines","Police issued",175,,0
+"NSW","Unknown","0-16","speed_fines","Police issued",2,,0
+"NSW","Unknown","17-25","speed_fines","Police issued",510,,6
+"NSW","Unknown","26-39","speed_fines","Police issued",664,,7
+"NSW","Unknown","40-64","speed_fines","Police issued",644,,2
+"NSW","Unknown","65 and over","speed_fines","Police issued",130,,1
+"NSW","Unknown","Unknown","speed_fines","Fixed camera",421099,,
+"NSW","Unknown","Unknown","speed_fines","Mobile camera",36506,,
+"NSW","Unknown","Unknown","speed_fines","Red light camera",248229,,
+"NSW","Very Remote Australia","0-16","speed_fines","Police issued",1,,0
+"NSW","Very Remote Australia","17-25","speed_fines","Police issued",46,,0
+"NSW","Very Remote Australia","26-39","speed_fines","Police issued",91,,1
+"NSW","Very Remote Australia","40-64","speed_fines","Police issued",83,,0
+"NSW","Very Remote Australia","65 and over","speed_fines","Police issued",21,,0
+"NT","Unknown","0-16","speed_fines","Mobile camera",30,,
+"NT","Unknown","0-16","speed_fines","Police issued",15,0,1
+"NT","Unknown","0-16","speed_fines","Red light camera",12,,
+"NT","Unknown","17-25","speed_fines","Mobile camera",4166,,
+"NT","Unknown","17-25","speed_fines","Police issued",673,12,62
+"NT","Unknown","17-25","speed_fines","Red light camera",810,,
+"NT","Unknown","26-39","speed_fines","Mobile camera",10368,,
+"NT","Unknown","26-39","speed_fines","Police issued",1308,24,99
+"NT","Unknown","26-39","speed_fines","Red light camera",2607,,
+"NT","Unknown","40-64","speed_fines","Mobile camera",12610,,
+"NT","Unknown","40-64","speed_fines","Police issued",1246,,
+"NT","Unknown","40-64","speed_fines","Red light camera",3803,,
+"NT","Unknown","65 and over","speed_fines","Mobile camera",3223,,
+"NT","Unknown","65 and over","speed_fines","Police issued",200,8,52
+"NT","Unknown","65 and over","speed_fines","Red light camera",765,,
+"NT","Unknown","Unknown","speed_fines","Mobile camera",1188,,
+"NT","Unknown","Unknown","speed_fines","Police issued",1,0,1
+"NT","Unknown","Unknown","speed_fines","Red light camera",281,,
+"QLD","Unknown","Unknown","speed_fines","Average speed camera",9790,,
+"QLD","Unknown","Unknown","speed_fines","Fixed camera",263939,,
+"QLD","Unknown","Unknown","speed_fines","Mobile camera",469785,,
+"QLD","Unknown","Unknown","speed_fines","Police issued",117112,,
+"SA","Unknown","0-16","speed_fines","Fixed camera",4,0,0
+"SA","Unknown","0-16","speed_fines","Mobile camera",6,0,0
+"SA","Unknown","0-16","speed_fines","Other",0,0,0
+"SA","Unknown","0-16","speed_fines","Police issued",11,8,1
+"SA","Unknown","17-25","speed_fines","Fixed camera",5725,0,0
+"SA","Unknown","17-25","speed_fines","Mobile camera",10095,0,0
+"SA","Unknown","17-25","speed_fines","Other",1,0,0
+"SA","Unknown","17-25","speed_fines","Police issued",8543,27,69
+"SA","Unknown","26-39","speed_fines","Fixed camera",14273,0,0
+"SA","Unknown","26-39","speed_fines","Mobile camera",26844,0,0
+"SA","Unknown","26-39","speed_fines","Other",2,0,0
+"SA","Unknown","26-39","speed_fines","Police issued",15231,32,109
+"SA","Unknown","40-64","speed_fines","Fixed camera",26455,0,0
+"SA","Unknown","40-64","speed_fines","Mobile camera",44291,0,0
+"SA","Unknown","40-64","speed_fines","Other",1,0,0
+"SA","Unknown","40-64","speed_fines","Police issued",19290,34,97
+"SA","Unknown","65 and over","speed_fines","Fixed camera",10218,0,0
+"SA","Unknown","65 and over","speed_fines","Mobile camera",13041,0,0
+"SA","Unknown","65 and over","speed_fines","Other",0,0,0
+"SA","Unknown","65 and over","speed_fines","Police issued",5121,1,6
+"SA","Unknown","Unknown","speed_fines","Fixed camera",2161,0,0
+"SA","Unknown","Unknown","speed_fines","Mobile camera",2249,0,0
+"SA","Unknown","Unknown","speed_fines","Other",0,0,0
+"SA","Unknown","Unknown","speed_fines","Police issued",40,0,0
+"TAS","Unknown","0-16","speed_fines","Fixed or mobile camera",15,,0
+"TAS","Unknown","0-16","speed_fines","Police issued",3,,13
+"TAS","Unknown","17-25","speed_fines","Fixed or mobile camera",5525,,0
+"TAS","Unknown","17-25","speed_fines","Police issued",3882,,100
+"TAS","Unknown","26-39","speed_fines","Fixed or mobile camera",13978,,0
+"TAS","Unknown","26-39","speed_fines","Police issued",6308,,154
+"TAS","Unknown","40-64","speed_fines","Fixed or mobile camera",19045,,0
+"TAS","Unknown","40-64","speed_fines","Police issued",7281,,91
+"TAS","Unknown","65 and over","speed_fines","Fixed or mobile camera",6820,,0
+"TAS","Unknown","65 and over","speed_fines","Police issued",2148,,3
+"TAS","Unknown","Unknown","speed_fines","Fixed or mobile camera",23,,0
+"TAS","Unknown","Unknown","speed_fines","Police issued",12,,0
+"VIC","Inner Regional Australia","0-16","speed_fines","Police issued",6,,
+"VIC","Inner Regional Australia","17-25","speed_fines","Fixed camera",1963,,
+"VIC","Inner Regional Australia","17-25","speed_fines","Mobile camera",8133,,
+"VIC","Inner Regional Australia","17-25","speed_fines","Police issued",8803,,
+"VIC","Inner Regional Australia","26-39","speed_fines","Fixed camera",7156,,
+"VIC","Inner Regional Australia","26-39","speed_fines","Mobile camera",31170,,
+"VIC","Inner Regional Australia","26-39","speed_fines","Police issued",17044,,
+"VIC","Inner Regional Australia","40-64","speed_fines","Fixed camera",11544,,
+"VIC","Inner Regional Australia","40-64","speed_fines","Mobile camera",50505,,
+"VIC","Inner Regional Australia","40-64","speed_fines","Police issued",21431,,
+"VIC","Inner Regional Australia","65 and over","speed_fines","Fixed camera",4723,,
+"VIC","Inner Regional Australia","65 and over","speed_fines","Mobile camera",19666,,
+"VIC","Inner Regional Australia","65 and over","speed_fines","Police issued",5524,,
+"VIC","Inner Regional Australia","Unknown","speed_fines","Fixed camera",8465,,
+"VIC","Inner Regional Australia","Unknown","speed_fines","Mobile camera",26135,,
+"VIC","Inner Regional Australia","Unknown","speed_fines","Police issued",23,,
+"VIC","Major Cities of Australia","0-16","speed_fines","Police issued",7,,
+"VIC","Major Cities of Australia","17-25","speed_fines","Fixed camera",33738,,
+"VIC","Major Cities of Australia","17-25","speed_fines","Mobile camera",24289,,
+"VIC","Major Cities of Australia","17-25","speed_fines","Police issued",11668,,
+"VIC","Major Cities of Australia","26-39","speed_fines","Fixed camera",123859,,
+"VIC","Major Cities of Australia","26-39","speed_fines","Mobile camera",98763,,
+"VIC","Major Cities of Australia","26-39","speed_fines","Police issued",21209,,
+"VIC","Major Cities of Australia","40-64","speed_fines","Fixed camera",206924,,
+"VIC","Major Cities of Australia","40-64","speed_fines","Mobile camera",159185,,
+"VIC","Major Cities of Australia","40-64","speed_fines","Police issued",23577,,
+"VIC","Major Cities of Australia","65 and over","speed_fines","Fixed camera",60259,,
+"VIC","Major Cities of Australia","65 and over","speed_fines","Mobile camera",46137,,
+"VIC","Major Cities of Australia","65 and over","speed_fines","Police issued",4344,,
+"VIC","Major Cities of Australia","Unknown","speed_fines","Fixed camera",134683,,
+"VIC","Major Cities of Australia","Unknown","speed_fines","Mobile camera",79323,,
+"VIC","Major Cities of Australia","Unknown","speed_fines","Police issued",31,,
+"VIC","Outer Regional Australia","0-16","speed_fines","Police issued",2,,
+"VIC","Outer Regional Australia","17-25","speed_fines","Fixed camera",26,,
+"VIC","Outer Regional Australia","17-25","speed_fines","Mobile camera",1042,,
+"VIC","Outer Regional Australia","17-25","speed_fines","Police issued",1751,,
+"VIC","Outer Regional Australia","26-39","speed_fines","Fixed camera",103,,
+"VIC","Outer Regional Australia","26-39","speed_fines","Mobile camera",3864,,
+"VIC","Outer Regional Australia","26-39","speed_fines","Police issued",3717,,
+"VIC","Outer Regional Australia","40-64","speed_fines","Fixed camera",201,,
+"VIC","Outer Regional Australia","40-64","speed_fines","Mobile camera",6620,,
+"VIC","Outer Regional Australia","40-64","speed_fines","Police issued",4362,,
+"VIC","Outer Regional Australia","65 and over","speed_fines","Fixed camera",61,,
+"VIC","Outer Regional Australia","65 and over","speed_fines","Mobile camera",3139,,
+"VIC","Outer Regional Australia","65 and over","speed_fines","Police issued",1053,,
+"VIC","Outer Regional Australia","Unknown","speed_fines","Fixed camera",120,,
+"VIC","Outer Regional Australia","Unknown","speed_fines","Mobile camera",3922,,
+"VIC","Outer Regional Australia","Unknown","speed_fines","Police issued",7,,
+"VIC","Remote Australia","17-25","speed_fines","Mobile camera",3,,
+"VIC","Remote Australia","17-25","speed_fines","Police issued",38,,
+"VIC","Remote Australia","26-39","speed_fines","Mobile camera",3,,
+"VIC","Remote Australia","26-39","speed_fines","Police issued",97,,
+"VIC","Remote Australia","40-64","speed_fines","Mobile camera",5,,
+"VIC","Remote Australia","40-64","speed_fines","Police issued",148,,
+"VIC","Remote Australia","65 and over","speed_fines","Mobile camera",1,,
+"VIC","Remote Australia","65 and over","speed_fines","Police issued",72,,
+"VIC","Remote Australia","Unknown","speed_fines","Mobile camera",2,,
+"VIC","Unknown","17-25","speed_fines","Fixed camera",656,,
+"VIC","Unknown","17-25","speed_fines","Mobile camera",793,,
+"VIC","Unknown","17-25","speed_fines","Police issued",254,,
+"VIC","Unknown","26-39","speed_fines","Fixed camera",2305,,
+"VIC","Unknown","26-39","speed_fines","Mobile camera",2587,,
+"VIC","Unknown","26-39","speed_fines","Police issued",531,,
+"VIC","Unknown","40-64","speed_fines","Fixed camera",3631,,
+"VIC","Unknown","40-64","speed_fines","Mobile camera",3890,,
+"VIC","Unknown","40-64","speed_fines","Police issued",606,,
+"VIC","Unknown","65 and over","speed_fines","Fixed camera",1083,,
+"VIC","Unknown","65 and over","speed_fines","Mobile camera",1490,,
+"VIC","Unknown","65 and over","speed_fines","Police issued",153,,
+"VIC","Unknown","Unknown","speed_fines","Fixed camera",2237,,
+"VIC","Unknown","Unknown","speed_fines","Mobile camera",1764,,
+"VIC","Unknown","Unknown","speed_fines","Police issued",2,,
+"WA","Unknown","0-16","speed_fines","Fixed camera",7,,
+"WA","Unknown","0-16","speed_fines","Mobile camera",19,,
+"WA","Unknown","0-16","speed_fines","Police issued",3,,
+"WA","Unknown","0-16","speed_fines","Red light camera",5,,
+"WA","Unknown","0-16","speed_fines","Unknown",,1,16
+"WA","Unknown","17-25","speed_fines","Average speed camera",2796,,
+"WA","Unknown","17-25","speed_fines","Fixed camera",12144,,
+"WA","Unknown","17-25","speed_fines","Mobile camera",60511,,
+"WA","Unknown","17-25","speed_fines","Police issued",9154,,
+"WA","Unknown","17-25","speed_fines","Red light camera",11304,,
+"WA","Unknown","17-25","speed_fines","Unknown",,5,292
+"WA","Unknown","26-39","speed_fines","Average speed camera",6085,,
+"WA","Unknown","26-39","speed_fines","Fixed camera",37772,,
+"WA","Unknown","26-39","speed_fines","Mobile camera",145216,,
+"WA","Unknown","26-39","speed_fines","Police issued",17462,,
+"WA","Unknown","26-39","speed_fines","Red light camera",39546,,
+"WA","Unknown","26-39","speed_fines","Unknown",,6,571
+"WA","Unknown","40-64","speed_fines","Average speed camera",6887,,
+"WA","Unknown","40-64","speed_fines","Fixed camera",56423,,
+"WA","Unknown","40-64","speed_fines","Mobile camera",206100,,
+"WA","Unknown","40-64","speed_fines","Police issued",20366,,
+"WA","Unknown","40-64","speed_fines","Red light camera",83716,,
+"WA","Unknown","40-64","speed_fines","Unknown",,1,589
+"WA","Unknown","65 and over","speed_fines","Average speed camera",1238,,
+"WA","Unknown","65 and over","speed_fines","Fixed camera",13833,,
+"WA","Unknown","65 and over","speed_fines","Mobile camera",48603,,
+"WA","Unknown","65 and over","speed_fines","Police issued",3941,,
+"WA","Unknown","65 and over","speed_fines","Red light camera",23984,,
+"WA","Unknown","65 and over","speed_fines","Unknown",,0,89
+"WA","Unknown","Unknown","speed_fines","Average speed camera",14,,
+"WA","Unknown","Unknown","speed_fines","Fixed camera",84,,
+"WA","Unknown","Unknown","speed_fines","Mobile camera",197,,
+"WA","Unknown","Unknown","speed_fines","Police issued",4,,
+"WA","Unknown","Unknown","speed_fines","Red light camera",73,,

@@ -1,0 +1,111 @@
+"JURISDICTION","LOCATION","AGE_GROUP","METRIC","DETECTION_METHOD","Sum(FINES)","Sum(ARRESTS)","Sum(CHARGES)"
+"ACT","Major Cities of Australia","0-16","non_wearing_seatbelts","Police issued",4,,
+"ACT","Major Cities of Australia","17-25","non_wearing_seatbelts","Police issued",27,,
+"ACT","Major Cities of Australia","26-39","non_wearing_seatbelts","Police issued",21,,
+"ACT","Major Cities of Australia","40-64","non_wearing_seatbelts","Police issued",21,,
+"ACT","Major Cities of Australia","65 and over","non_wearing_seatbelts","Police issued",2,,
+"NSW","Inner Regional Australia","0-16","non_wearing_seatbelts","Police issued",25,,8
+"NSW","Inner Regional Australia","17-25","non_wearing_seatbelts","Police issued",835,,24
+"NSW","Inner Regional Australia","26-39","non_wearing_seatbelts","Police issued",1291,,21
+"NSW","Inner Regional Australia","40-64","non_wearing_seatbelts","Police issued",873,,14
+"NSW","Inner Regional Australia","65 and over","non_wearing_seatbelts","Police issued",192,,0
+"NSW","Major Cities of Australia","0-16","non_wearing_seatbelts","Police issued",30,,5
+"NSW","Major Cities of Australia","17-25","non_wearing_seatbelts","Police issued",1464,,44
+"NSW","Major Cities of Australia","26-39","non_wearing_seatbelts","Police issued",2225,,76
+"NSW","Major Cities of Australia","40-64","non_wearing_seatbelts","Police issued",1489,,38
+"NSW","Major Cities of Australia","65 and over","non_wearing_seatbelts","Police issued",226,,5
+"NSW","Outer Regional Australia","0-16","non_wearing_seatbelts","Police issued",7,,0
+"NSW","Outer Regional Australia","17-25","non_wearing_seatbelts","Police issued",264,,5
+"NSW","Outer Regional Australia","26-39","non_wearing_seatbelts","Police issued",479,,8
+"NSW","Outer Regional Australia","40-64","non_wearing_seatbelts","Police issued",399,,5
+"NSW","Outer Regional Australia","65 and over","non_wearing_seatbelts","Police issued",96,,3
+"NSW","Remote Australia","17-25","non_wearing_seatbelts","Police issued",22,,1
+"NSW","Remote Australia","26-39","non_wearing_seatbelts","Police issued",31,,2
+"NSW","Remote Australia","40-64","non_wearing_seatbelts","Police issued",53,,0
+"NSW","Remote Australia","65 and over","non_wearing_seatbelts","Police issued",11,,0
+"NSW","Unknown","17-25","non_wearing_seatbelts","Police issued",51,,1
+"NSW","Unknown","26-39","non_wearing_seatbelts","Police issued",89,,3
+"NSW","Unknown","40-64","non_wearing_seatbelts","Police issued",50,,1
+"NSW","Unknown","65 and over","non_wearing_seatbelts","Police issued",12,,0
+"NSW","Very Remote Australia","17-25","non_wearing_seatbelts","Police issued",8,,1
+"NSW","Very Remote Australia","26-39","non_wearing_seatbelts","Police issued",16,,1
+"NSW","Very Remote Australia","40-64","non_wearing_seatbelts","Police issued",7,,1
+"NSW","Very Remote Australia","65 and over","non_wearing_seatbelts","Police issued",1,,0
+"NT","Unknown","0-16","non_wearing_seatbelts","Police issued",1,3,6
+"NT","Unknown","17-25","non_wearing_seatbelts","Police issued",153,12,101
+"NT","Unknown","26-39","non_wearing_seatbelts","Police issued",351,22,154
+"NT","Unknown","40-64","non_wearing_seatbelts","Police issued",266,,
+"NT","Unknown","65 and over","non_wearing_seatbelts","Police issued",18,10,87
+"QLD","Unknown","Unknown","non_wearing_seatbelts","Fixed or mobile camera",33366,,
+"QLD","Unknown","Unknown","non_wearing_seatbelts","Police issued",4164,,
+"SA","Unknown","0-16","non_wearing_seatbelts","Police issued",11,,
+"SA","Unknown","17-25","non_wearing_seatbelts","Police issued",487,,
+"SA","Unknown","26-39","non_wearing_seatbelts","Police issued",931,,
+"SA","Unknown","40-64","non_wearing_seatbelts","Police issued",1044,,
+"SA","Unknown","65 and over","non_wearing_seatbelts","Police issued",411,,
+"SA","Unknown","Unknown","non_wearing_seatbelts","Police issued",0,,
+"TAS","Unknown","0-16","non_wearing_seatbelts","Police issued",0,,2
+"TAS","Unknown","17-25","non_wearing_seatbelts","Fixed or mobile camera",187,,0
+"TAS","Unknown","17-25","non_wearing_seatbelts","Police issued",171,,15
+"TAS","Unknown","26-39","non_wearing_seatbelts","Fixed or mobile camera",435,,0
+"TAS","Unknown","26-39","non_wearing_seatbelts","Police issued",243,,22
+"TAS","Unknown","40-64","non_wearing_seatbelts","Fixed or mobile camera",478,,0
+"TAS","Unknown","40-64","non_wearing_seatbelts","Police issued",227,,11
+"TAS","Unknown","65 and over","non_wearing_seatbelts","Fixed or mobile camera",229,,0
+"TAS","Unknown","65 and over","non_wearing_seatbelts","Police issued",99,,0
+"TAS","Unknown","Unknown","non_wearing_seatbelts","Fixed or mobile camera",1,,0
+"VIC","Inner Regional Australia","0-16","non_wearing_seatbelts","Police issued",4,,
+"VIC","Inner Regional Australia","17-25","non_wearing_seatbelts","Mobile camera",185,,
+"VIC","Inner Regional Australia","17-25","non_wearing_seatbelts","Police issued",433,,
+"VIC","Inner Regional Australia","26-39","non_wearing_seatbelts","Mobile camera",623,,
+"VIC","Inner Regional Australia","26-39","non_wearing_seatbelts","Police issued",728,,
+"VIC","Inner Regional Australia","40-64","non_wearing_seatbelts","Mobile camera",916,,
+"VIC","Inner Regional Australia","40-64","non_wearing_seatbelts","Police issued",639,,
+"VIC","Inner Regional Australia","65 and over","non_wearing_seatbelts","Mobile camera",364,,
+"VIC","Inner Regional Australia","65 and over","non_wearing_seatbelts","Police issued",173,,
+"VIC","Inner Regional Australia","Unknown","non_wearing_seatbelts","Mobile camera",4473,,
+"VIC","Major Cities of Australia","0-16","non_wearing_seatbelts","Police issued",6,,
+"VIC","Major Cities of Australia","17-25","non_wearing_seatbelts","Mobile camera",495,,
+"VIC","Major Cities of Australia","17-25","non_wearing_seatbelts","Police issued",835,,
+"VIC","Major Cities of Australia","26-39","non_wearing_seatbelts","Mobile camera",2338,,
+"VIC","Major Cities of Australia","26-39","non_wearing_seatbelts","Police issued",1990,,
+"VIC","Major Cities of Australia","40-64","non_wearing_seatbelts","Mobile camera",3009,,
+"VIC","Major Cities of Australia","40-64","non_wearing_seatbelts","Police issued",1457,,
+"VIC","Major Cities of Australia","65 and over","non_wearing_seatbelts","Mobile camera",933,,
+"VIC","Major Cities of Australia","65 and over","non_wearing_seatbelts","Police issued",225,,
+"VIC","Major Cities of Australia","Unknown","non_wearing_seatbelts","Mobile camera",9130,,
+"VIC","Major Cities of Australia","Unknown","non_wearing_seatbelts","Police issued",4,,
+"VIC","Outer Regional Australia","0-16","non_wearing_seatbelts","Police issued",3,,
+"VIC","Outer Regional Australia","17-25","non_wearing_seatbelts","Mobile camera",1,,
+"VIC","Outer Regional Australia","17-25","non_wearing_seatbelts","Police issued",108,,
+"VIC","Outer Regional Australia","26-39","non_wearing_seatbelts","Mobile camera",4,,
+"VIC","Outer Regional Australia","26-39","non_wearing_seatbelts","Police issued",142,,
+"VIC","Outer Regional Australia","40-64","non_wearing_seatbelts","Mobile camera",11,,
+"VIC","Outer Regional Australia","40-64","non_wearing_seatbelts","Police issued",149,,
+"VIC","Outer Regional Australia","65 and over","non_wearing_seatbelts","Mobile camera",13,,
+"VIC","Outer Regional Australia","65 and over","non_wearing_seatbelts","Police issued",68,,
+"VIC","Outer Regional Australia","Unknown","non_wearing_seatbelts","Mobile camera",20,,
+"VIC","Remote Australia","17-25","non_wearing_seatbelts","Police issued",1,,
+"VIC","Remote Australia","26-39","non_wearing_seatbelts","Police issued",3,,
+"VIC","Remote Australia","40-64","non_wearing_seatbelts","Police issued",3,,
+"VIC","Remote Australia","65 and over","non_wearing_seatbelts","Police issued",3,,
+"VIC","Unknown","17-25","non_wearing_seatbelts","Mobile camera",12,,
+"VIC","Unknown","17-25","non_wearing_seatbelts","Police issued",4,,
+"VIC","Unknown","26-39","non_wearing_seatbelts","Mobile camera",66,,
+"VIC","Unknown","26-39","non_wearing_seatbelts","Police issued",22,,
+"VIC","Unknown","40-64","non_wearing_seatbelts","Mobile camera",60,,
+"VIC","Unknown","40-64","non_wearing_seatbelts","Police issued",20,,
+"VIC","Unknown","65 and over","non_wearing_seatbelts","Mobile camera",21,,
+"VIC","Unknown","65 and over","non_wearing_seatbelts","Police issued",4,,
+"VIC","Unknown","Unknown","non_wearing_seatbelts","Mobile camera",702,,
+"WA","Unknown","0-16","non_wearing_seatbelts","Police issued",1,,
+"WA","Unknown","0-16","non_wearing_seatbelts","Unknown",,0,3
+"WA","Unknown","17-25","non_wearing_seatbelts","Police issued",410,,
+"WA","Unknown","17-25","non_wearing_seatbelts","Unknown",,8,103
+"WA","Unknown","26-39","non_wearing_seatbelts","Police issued",715,,
+"WA","Unknown","26-39","non_wearing_seatbelts","Unknown",,11,158
+"WA","Unknown","40-64","non_wearing_seatbelts","Police issued",536,,
+"WA","Unknown","40-64","non_wearing_seatbelts","Unknown",,0,74
+"WA","Unknown","65 and over","non_wearing_seatbelts","Police issued",111,,
+"WA","Unknown","65 and over","non_wearing_seatbelts","Unknown",,0,9
+"WA","Unknown","Unknown","non_wearing_seatbelts","Police issued",1,,

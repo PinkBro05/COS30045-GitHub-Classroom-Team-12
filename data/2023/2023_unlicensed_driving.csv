@@ -1,0 +1,85 @@
+"JURISDICTION","LOCATION","AGE_GROUP","METRIC","DETECTION_METHOD","Sum(FINES)","Sum(ARRESTS)","Sum(CHARGES)"
+"ACT","Major Cities of Australia","0-16","unlicensed_driving","Police issued",11,13,22
+"ACT","Major Cities of Australia","17-25","unlicensed_driving","Police issued",84,30,149
+"ACT","Major Cities of Australia","26-39","unlicensed_driving","Police issued",104,118,340
+"ACT","Major Cities of Australia","40-64","unlicensed_driving","Police issued",58,54,191
+"ACT","Major Cities of Australia","65 and over","unlicensed_driving","Police issued",3,0,6
+"NSW","Inner Regional Australia","0-16","unlicensed_driving","Police issued",18,,164
+"NSW","Inner Regional Australia","17-25","unlicensed_driving","Police issued",469,,1960
+"NSW","Inner Regional Australia","26-39","unlicensed_driving","Police issued",1040,,3375
+"NSW","Inner Regional Australia","40-64","unlicensed_driving","Police issued",704,,1999
+"NSW","Inner Regional Australia","65 and over","unlicensed_driving","Police issued",66,,134
+"NSW","Major Cities of Australia","0-16","unlicensed_driving","Police issued",35,,368
+"NSW","Major Cities of Australia","17-25","unlicensed_driving","Police issued",1146,,5769
+"NSW","Major Cities of Australia","26-39","unlicensed_driving","Police issued",2119,,8370
+"NSW","Major Cities of Australia","40-64","unlicensed_driving","Police issued",1344,,5386
+"NSW","Major Cities of Australia","65 and over","unlicensed_driving","Police issued",90,,266
+"NSW","Major Cities of Australia","Unknown","unlicensed_driving","Police issued",0,,1
+"NSW","Outer Regional Australia","0-16","unlicensed_driving","Police issued",2,,92
+"NSW","Outer Regional Australia","17-25","unlicensed_driving","Police issued",138,,473
+"NSW","Outer Regional Australia","26-39","unlicensed_driving","Police issued",276,,926
+"NSW","Outer Regional Australia","40-64","unlicensed_driving","Police issued",195,,581
+"NSW","Outer Regional Australia","65 and over","unlicensed_driving","Police issued",24,,59
+"NSW","Remote Australia","0-16","unlicensed_driving","Police issued",4,,8
+"NSW","Remote Australia","17-25","unlicensed_driving","Police issued",16,,88
+"NSW","Remote Australia","26-39","unlicensed_driving","Police issued",21,,137
+"NSW","Remote Australia","40-64","unlicensed_driving","Police issued",11,,80
+"NSW","Remote Australia","65 and over","unlicensed_driving","Police issued",0,,5
+"NSW","Unknown","0-16","unlicensed_driving","Police issued",0,,6
+"NSW","Unknown","17-25","unlicensed_driving","Police issued",26,,128
+"NSW","Unknown","26-39","unlicensed_driving","Police issued",61,,204
+"NSW","Unknown","40-64","unlicensed_driving","Police issued",33,,135
+"NSW","Unknown","65 and over","unlicensed_driving","Police issued",6,,13
+"NSW","Very Remote Australia","0-16","unlicensed_driving","Police issued",0,,1
+"NSW","Very Remote Australia","17-25","unlicensed_driving","Police issued",2,,29
+"NSW","Very Remote Australia","26-39","unlicensed_driving","Police issued",8,,56
+"NSW","Very Remote Australia","40-64","unlicensed_driving","Police issued",5,,22
+"NSW","Very Remote Australia","65 and over","unlicensed_driving","Police issued",0,,1
+"NT","Unknown","0-16","unlicensed_driving","Police issued",,105,153
+"NT","Unknown","17-25","unlicensed_driving","Police issued",81,156,526
+"NT","Unknown","26-39","unlicensed_driving","Police issued",190,168,675
+"NT","Unknown","40-64","unlicensed_driving","Police issued",89,,
+"NT","Unknown","65 and over","unlicensed_driving","Police issued",6,86,358
+"QLD","Unknown","Unknown","unlicensed_driving","Police issued",27701,,
+"SA","Unknown","0-16","unlicensed_driving","Police issued",3,86,56
+"SA","Unknown","17-25","unlicensed_driving","Police issued",1084,228,664
+"SA","Unknown","26-39","unlicensed_driving","Police issued",3086,732,1833
+"SA","Unknown","40-64","unlicensed_driving","Police issued",2643,448,1825
+"SA","Unknown","65 and over","unlicensed_driving","Police issued",242,15,101
+"SA","Unknown","Unknown","unlicensed_driving","Police issued",1,0,0
+"TAS","Unknown","0-16","unlicensed_driving","Police issued",0,,71
+"TAS","Unknown","17-25","unlicensed_driving","Police issued",38,,320
+"TAS","Unknown","26-39","unlicensed_driving","Police issued",110,,703
+"TAS","Unknown","40-64","unlicensed_driving","Police issued",79,,454
+"TAS","Unknown","65 and over","unlicensed_driving","Police issued",6,,18
+"TAS","Unknown","Unknown","unlicensed_driving","Police issued",1,,1
+"VIC","Inner Regional Australia","0-16","unlicensed_driving","Police issued",20,,
+"VIC","Inner Regional Australia","17-25","unlicensed_driving","Police issued",378,,
+"VIC","Inner Regional Australia","26-39","unlicensed_driving","Police issued",1088,,
+"VIC","Inner Regional Australia","40-64","unlicensed_driving","Police issued",761,,
+"VIC","Inner Regional Australia","65 and over","unlicensed_driving","Police issued",67,,
+"VIC","Inner Regional Australia","Unknown","unlicensed_driving","Police issued",5,,
+"VIC","Major Cities of Australia","0-16","unlicensed_driving","Police issued",24,,
+"VIC","Major Cities of Australia","17-25","unlicensed_driving","Police issued",1438,,
+"VIC","Major Cities of Australia","26-39","unlicensed_driving","Police issued",3061,,
+"VIC","Major Cities of Australia","40-64","unlicensed_driving","Police issued",1539,,
+"VIC","Major Cities of Australia","65 and over","unlicensed_driving","Police issued",134,,
+"VIC","Major Cities of Australia","Unknown","unlicensed_driving","Police issued",14,,
+"VIC","Outer Regional Australia","0-16","unlicensed_driving","Police issued",10,,
+"VIC","Outer Regional Australia","17-25","unlicensed_driving","Police issued",110,,
+"VIC","Outer Regional Australia","26-39","unlicensed_driving","Police issued",316,,
+"VIC","Outer Regional Australia","40-64","unlicensed_driving","Police issued",204,,
+"VIC","Outer Regional Australia","65 and over","unlicensed_driving","Police issued",22,,
+"VIC","Outer Regional Australia","Unknown","unlicensed_driving","Police issued",2,,
+"VIC","Remote Australia","26-39","unlicensed_driving","Police issued",3,,
+"VIC","Remote Australia","40-64","unlicensed_driving","Police issued",3,,
+"VIC","Unknown","0-16","unlicensed_driving","Police issued",1,,
+"VIC","Unknown","17-25","unlicensed_driving","Police issued",21,,
+"VIC","Unknown","26-39","unlicensed_driving","Police issued",41,,
+"VIC","Unknown","40-64","unlicensed_driving","Police issued",23,,
+"WA","Unknown","0-16","unlicensed_driving","Police issued",,209,541
+"WA","Unknown","17-25","unlicensed_driving","Police issued",483,484,4216
+"WA","Unknown","26-39","unlicensed_driving","Police issued",876,1045,6658
+"WA","Unknown","40-64","unlicensed_driving","Police issued",617,353,3801
+"WA","Unknown","65 and over","unlicensed_driving","Police issued",84,6,115
+"WA","Unknown","Unknown","unlicensed_driving","Police issued",,0,1

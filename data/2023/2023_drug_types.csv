@@ -1,0 +1,9 @@
+"YEAR","JURISDICTION","METRIC","Sum(AMPHETAMINE)","Sum(CANNABIS)","Sum(COCAINE)","Sum(ECSTASY)","Sum(METHYLAMPHETAMINE)","Sum(OTHER)","Sum(UNKNOWN)","Sum(COUNT)","Sum(FINES)","Sum(ARRESTS)","Sum(CHARGES)"
+2023,"ACT","positive_drug_tests",98,67,2,0,0,8,61,203,,42,203
+2023,"NSW","positive_drug_tests",22247,20903,3513,405,0,0,320,40551,13005,,27546
+2023,"NT","positive_drug_tests",0,573,0,0,0,0,0,573,573,,
+2023,"QLD","positive_drug_tests",55,6408,351,226,6162,2,1411,11983,,,11983
+2023,"SA","positive_drug_tests",0,2443,0,91,3182,0,12,5329,3254,152,1842
+2023,"TAS","positive_drug_tests",0,0,0,0,0,0,2223,2223,,,
+2023,"VIC","positive_drug_tests",6543,3467,0,347,0,0,0,8813,,,
+2023,"WA","positive_drug_tests",12551,6555,0,79,0,0,5562,23200,17694,16,5506
