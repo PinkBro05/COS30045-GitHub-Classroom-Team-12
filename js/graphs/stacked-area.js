@@ -1,7 +1,9 @@
 // Stacked Area Chart for Infringement Categories Over Time
 let stackedAreaData = [];
 let filteredMetrics = new Set();
+let availableJurisdictions = new Set();
 let currentMetricFilter = 'all';
+let selectedJurisdiction = 'all';
 
 // Fallback dimensions in case shared-constants.js isn't loaded
 const chartDimensions = {
@@ -24,16 +26,16 @@ function formatNumber(num) {
     return num.toLocaleString();
 }
 
-// Color scheme for different categories
-const categoryColors = {
-    'speed_fines': '#FF6B6B',
-    'mobile_phone_use': '#4ECDC4',
-    'non_wearing_seatbelts': '#45B7D1',
-    'unlicensed_driving': '#96CEB4',
-    'positive_breath_tests': '#FFEAA7',
-    'positive_drug_tests': '#DDA0DD',
-    'breath_tests_conducted': '#98D8C8',
-    'drug_tests_conducted': '#F7DC6F'
+// Color scheme for different jurisdictions
+const jurisdictionColors = {
+    'NSW': '#FF6B6B',
+    'VIC': '#4ECDC4', 
+    'QLD': '#45B7D1',
+    'SA': '#96CEB4',
+    'WA': '#FFEAA7',
+    'TAS': '#DDA0DD',
+    'NT': '#98D8C8',
+    'ACT': '#F7DC6F'
 };
 
 // Load and process all data files
@@ -85,23 +87,24 @@ async function loadStackedAreaData() {
             jurisdiction: d.JURISDICTION,
             metric: d.METRIC,
             value: +d["Sum(COUNT)"] || 0
-        })).filter(d => !isNaN(d.year) && !isNaN(d.value));
-
-        // Combine all data
+        })).filter(d => !isNaN(d.year) && !isNaN(d.value));        // Combine all data and filter out unlicensed_driving
         stackedAreaData = [
             ...processedSpeedMobile,
             ...processedPosBreath,
             ...processedPosDrug,
             ...processedDrugBreathConducted
-        ];
-
-        console.log('Processed data:', stackedAreaData.length, 'records');
-
-        // Get all unique metrics for filtering
+        ].filter(d => d.metric !== 'unlicensed_driving');console.log('Processed data:', stackedAreaData.length, 'records');
+        console.log('Sample data records:', stackedAreaData.slice(0, 5));
+        console.log('Year range:', d3.extent(stackedAreaData, d => d.year));
+        console.log('Unique years:', [...new Set(stackedAreaData.map(d => d.year))].sort());        // Get all unique metrics and jurisdictions for filtering
         filteredMetrics = new Set(stackedAreaData.map(d => d.metric));
+        availableJurisdictions = new Set(stackedAreaData.map(d => d.jurisdiction));
         console.log('Available metrics:', Array.from(filteredMetrics));
-
-        // Draw initial chart
+        console.log('Available jurisdictions:', Array.from(availableJurisdictions));
+        
+        // Debug unlicensed_driving data specifically (should be empty now)
+        const unlicensedData = stackedAreaData.filter(d => d.metric === 'unlicensed_driving');
+        console.log('Unlicensed driving data after filter:', unlicensedData.length, 'records');        // Draw initial chart
         drawStackedArea('#stacked-area', stackedAreaData);
         createMetricFilter();
 
@@ -136,7 +139,7 @@ function createMetricFilter() {
         .style('text-align', 'center');
 
     filterDiv.append('label')
-        .text('Filter by Category: ')
+        .text('Filter by Metric: ')
         .style('margin-right', '10px')
         .style('font-weight', 'bold');
 
@@ -152,7 +155,7 @@ function createMetricFilter() {
     // Add options
     select.append('option')
         .attr('value', 'all')
-        .text('All Categories');
+        .text('All Metrics');
 
     Array.from(filteredMetrics).sort().forEach(metric => {
         select.append('option')
@@ -180,13 +183,13 @@ function drawStackedArea(selector, data) {
         .attr('class', 'stacked-area-chart')
         .attr('viewBox', [0, 0, chartDimensions.width, chartDimensions.height])
         .attr('width', chartDimensions.width- 200)
-        .attr('height', chartDimensions.height - 200);// Filter data by metric if needed
+        .attr('height', chartDimensions.height - 200);    // Filter data by metric if needed
     let filteredData = data;
     if (currentMetricFilter !== 'all') {
         filteredData = data.filter(d => d.metric === currentMetricFilter);
     }
 
-    console.log('Filtered data length:', filteredData.length);    if (filteredData.length === 0) {
+    console.log('Filtered data length:', filteredData.length);if (filteredData.length === 0) {
         svg.append('text')
             .attr('x', chartDimensions.width / 2)
             .attr('y', chartDimensions.height / 2)
@@ -194,53 +197,55 @@ function drawStackedArea(selector, data) {
             .style('font-size', '16px')
             .text('No data available for the selected filter');
         return;
-    }
-
-    // Aggregate data by year and metric
+    }    // Aggregate data by year and jurisdiction
     const aggregatedData = d3.rollup(
         filteredData,
         v => d3.sum(v, d => d.value),
         d => d.year,
-        d => d.metric
-    );
-
-    // Convert to array format suitable for stacking
+        d => d.jurisdiction
+    );    // Convert to array format suitable for stacking
     const years = Array.from(aggregatedData.keys()).sort();
-    const metrics = currentMetricFilter === 'all' ? 
-        Array.from(filteredMetrics).sort() : 
-        [currentMetricFilter];
+    const jurisdictions = Array.from(availableJurisdictions).sort(); // Always show all jurisdictions
 
-    const processedData = years.map(year => {
+    console.log('Processing years:', years);
+    console.log('Processing jurisdictions:', jurisdictions);    const processedData = years.map(year => {
         const yearData = { year };
-        metrics.forEach(metric => {
-            yearData[metric] = aggregatedData.get(year)?.get(metric) || 0;
+        jurisdictions.forEach(jurisdiction => {
+            yearData[jurisdiction] = aggregatedData.get(year)?.get(jurisdiction) || 0;
         });
         return yearData;
-    });    // Set up scales
+    });
+
+    console.log('Processed data for chart:', processedData.slice(0, 3));// Set up scales
     const xScale = d3.scaleLinear()
         .domain(d3.extent(years))
-        .range([0, chartDimensions.inner.width]);
-
-    const yScale = d3.scaleLinear()
+        .range([0, chartDimensions.inner.width]);    const yScale = d3.scaleLinear()
         .domain([0, d3.max(processedData, d => 
-            d3.sum(metrics, metric => d[metric])
-        )])
-        .range([chartDimensions.inner.height, 0]);
-
-    // Create stack generator
+            d3.sum(jurisdictions, jurisdiction => d[jurisdiction])
+        ) + (jurisdictions.length * 2)]) // Add padding to domain
+        .range([chartDimensions.inner.height, 0]);// Create stack generator with padding
     const stack = d3.stack()
-        .keys(metrics)
+        .keys(jurisdictions)
         .order(d3.stackOrderNone)
         .offset(d3.stackOffsetNone);
 
     const stackedData = stack(processedData);
-
-    // Create area generator
+    
+    // Add padding between stack layers for visual separation
+    const padding = 2; // pixels of padding between areas
+    stackedData.forEach((layer, layerIndex) => {
+        layer.forEach(d => {
+            if (layerIndex > 0) {
+                d[0] += layerIndex * padding;
+                d[1] += layerIndex * padding;
+            }
+        });
+    });    // Create area generator (no interpolation for accurate data representation)
     const area = d3.area()
         .x(d => xScale(d.data.year))
         .y0(d => yScale(d[0]))
         .y1(d => yScale(d[1]))
-        .curve(d3.curveCardinal);    // Create chart group
+        .curve(d3.curveLinear);// Create chart group
     const chart = svg.append('g')
         .attr('transform', `translate(${chartDimensions.margin.left}, ${chartDimensions.margin.top})`);
 
@@ -254,18 +259,17 @@ function drawStackedArea(selector, data) {
         .style('padding', '10px')
         .style('border-radius', '4px')
         .style('font-size', '12px')
-        .style('pointer-events', 'none');
-
-    // Draw areas
+        .style('pointer-events', 'none');    // Draw areas with borders and spacing
     chart.selectAll('.area')
         .data(stackedData)
         .join('path')
         .attr('class', 'area')
         .attr('d', area)
-        .attr('fill', d => categoryColors[d.key] || '#69b3a2')
-        .attr('stroke', 'white')
-        .attr('stroke-width', 0.5)
-        .style('opacity', 0.8)        .on('mouseover', function(event, d) {
+        .attr('fill', d => jurisdictionColors[d.key] || '#69b3a2')
+        .attr('stroke', '#ffffff')
+        .attr('stroke-width', 2)
+        .style('opacity', d => selectedJurisdiction === 'all' || selectedJurisdiction === d.key ? 0.8 : 0.3)
+        .style('transition', 'opacity 0.3s ease').on('mouseover', function(event, d) {
             d3.select(this).style('opacity', 1);
             tooltip.transition().duration(200).style('opacity', .9);
               // Find the data point closest to mouse position
@@ -276,14 +280,13 @@ function drawStackedArea(selector, data) {
             const value = yearData ? yearData[d.key] : 0;
             
             tooltip.html(`
-                <strong>${d.key.replace(/_/g, ' ').replace(/\b\w/g, l => l.toUpperCase())}</strong><br/>
+                <strong>${d.key}</strong><br/>
                 Year: ${closestYear}<br/>
                 Value: ${formatNumber(value)}
             `)
                 .style('left', (event.pageX + 10) + 'px')
                 .style('top', (event.pageY - 28) + 'px');
-        })
-        .on('mousemove', function(event, d) {            // Update tooltip position and content on mouse move
+        })        .on('mousemove', function(event, d) {            // Update tooltip position and content on mouse move
             const [mouseX] = d3.pointer(event, this);
             const xPos = xScale.invert(mouseX);
             const closestYear = Math.round(xPos);
@@ -291,7 +294,7 @@ function drawStackedArea(selector, data) {
             const value = yearData ? yearData[d.key] : 0;
             
             tooltip.html(`
-                <strong>${d.key.replace(/_/g, ' ').replace(/\b\w/g, l => l.toUpperCase())}</strong><br/>
+                <strong>${d.key}</strong><br/>
                 Year: ${closestYear}<br/>
                 Value: ${formatNumber(value)}
             `)
@@ -323,43 +326,51 @@ function drawStackedArea(selector, data) {
         .attr('fill', 'black')
         .style('text-anchor', 'middle')
         .style('font-size', '14px')
-        .text('Count/Fines');
-
-    // Add legend
+        .text('Count/Fines');    // Add legend
     const legend = svg.append('g')
-        .attr('transform', `translate(${chartDimensions.width - 20}, 20)`);const legendItems = legend.selectAll('.legend-item')
-        .data(metrics)
+        .attr('transform', `translate(${chartDimensions.width - 20}, 20)`);
+
+    const legendItems = legend.selectAll('.legend-item')
+        .data(jurisdictions)
         .join('g')
         .attr('class', 'legend-item')
         .attr('transform', (d, i) => `translate(0, ${i * 20})`)
-        .style('cursor', 'pointer')
-        .on('click', function(event, d) {
-            // Toggle category in filter
-            if (currentMetricFilter === 'all') {
-                currentMetricFilter = d;
-            } else if (currentMetricFilter === d) {
-                currentMetricFilter = 'all';
+        .style('cursor', 'pointer')        .on('click', function(event, d) {
+            // Toggle jurisdiction selection
+            if (selectedJurisdiction === d) {
+                selectedJurisdiction = 'all';
             } else {
-                currentMetricFilter = d;
+                selectedJurisdiction = d;
             }
             
-            // Update the select element
-            d3.select('.metric-filter select').property('value', currentMetricFilter);
-            
-            // Redraw chart
+            // Redraw chart with new selection
             drawStackedArea('#stacked-area', stackedAreaData);
-        });    legendItems.append('rect')
+        })
+        .on('mouseover', function(event, d) {
+            d3.select(this).select('rect')
+                .attr('stroke', '#333')
+                .attr('stroke-width', 1);
+        })
+        .on('mouseout', function(event, d) {
+            d3.select(this).select('rect')
+                .attr('stroke', d => selectedJurisdiction === d ? '#333' : 'none')
+                .attr('stroke-width', d => selectedJurisdiction === d ? 2 : 0);
+        });
+
+    legendItems.append('rect')
         .attr('width', 15)
         .attr('height', 15)
-        .attr('fill', d => categoryColors[d] || '#69b3a2')
-        .attr('stroke', d => currentMetricFilter === d ? '#333' : 'none')
-        .attr('stroke-width', d => currentMetricFilter === d ? 2 : 0);
+        .attr('fill', d => jurisdictionColors[d] || '#69b3a2')
+        .attr('stroke', d => selectedJurisdiction === d ? '#333' : 'none')
+        .attr('stroke-width', d => selectedJurisdiction === d ? 2 : 0);
 
     legendItems.append('text')
-        .attr('x', 20)        .attr('y', 12)
+        .attr('x', 20)
+        .attr('y', 12)
         .style('font-size', '12px')
-        .style('font-weight', d => currentMetricFilter === d ? 'bold' : 'normal')
-        .text(d => d.replace(/_/g, ' ').replace(/\b\w/g, l => l.toUpperCase()));
+        .style('font-weight', d => selectedJurisdiction === d ? 'bold' : 'normal')
+        .style('fill', d => selectedJurisdiction === 'all' || selectedJurisdiction === d ? '#333' : '#999')
+        .text(d => d);
 }
 
 // Initialize the chart when DOM is loaded
