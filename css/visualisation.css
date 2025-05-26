@@ -107,13 +107,37 @@ svg text {
         text-align: left;
         padding: 10px;
     }
-    
+
     .metric-filter label {
         display: block;
         margin-bottom: 8px;
     }
-    
+
     .metric-filter select {
         width: 100%;
     }
+}
+
+.responsive-svg-container {
+    width: 100%;
+}
+
+.bar-label {
+    font-size: 10px;
+    fill: #1a365d;
+    dominant-baseline: middle;
+
+    &.name {
+        font-weight: 600;
+    }
+    &.figure {
+        font-weight: 400;
+    }
+}
+
+.bar-title {
+    font-size: 12px;
+    font-weight: 600;
+    text-anchor: middle;
+    fill: #1a365d;
 }
