@@ -80,8 +80,15 @@ main {
         }
     }
 
-    .filter {
+    .filters {
         margin-bottom: 2rem;
+
+        h3 {
+            font-size: 1.5rem;
+            color: #1a365d;
+            margin-bottom: 1rem;
+            text-align: center;
+        }
 
         label {
             font-weight: bold;
