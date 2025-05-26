@@ -1,19 +1,12 @@
-const fakeData = []
-for (let year = 2018; year <= 2023; year++) {
-    for (let state of ['NSW', 'VIC', 'QLD', 'WA', 'SA', 'TAS', 'ACT', 'NT']) {
-      for (let metric of ['speedFines', 'mobileFines', 'noSeatbeltFines', 'unlicensedFines', 'positiveBreathFines', 'positiveDrugFines']) {
-        fakeData.push({
-            state: state,
-            year: year,
-            metric: metric,
-            data: Math.floor(Math.random() * 10000) + 1000, // Random data between 1000 and 11000
-        });
-      }
-    }
-}
+d3.csv('data/annual_metrics_data.csv', d => ({
+  year: +d.year,
+  state: d.state,
+  metric: d.metric,
+  data: +d.data
+})).then(data => {
+  console.log(data);
 
-sortData = fakeData.filter(d => d.year === 2023 && d.metric === 'speedFines').sort((a, b) => b.data - a.data);
+  filterData = data.filter(d => d.year === 2023 && d.metric === 'speed_fines').sort((a, b) => b.data - a.data);
 
-console.log(sortData);
-
-drawMapAndBar('#australia-map', sortData);
+  drawMapAndBar('#australia-map', filterData);
+});
