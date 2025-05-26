@@ -1,0 +1,119 @@
+/* Responsive SVG containers */
+.responsive-svg-container {
+    display: block;
+    width: 100%;
+    height: auto;
+    margin: 0 auto;
+}
+
+.responsive-svg-container svg {
+    width: 100%;
+    height: auto;
+}
+
+/* Stacked Area Chart Styles */
+.metric-filter {
+    background: #f8f9fa;
+    padding: 15px;
+    border-radius: 8px;
+    border: 1px solid #e9ecef;
+    margin-bottom: 20px;
+}
+
+.metric-filter label {
+    color: #495057;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.metric-filter select {
+    padding: 8px 12px;
+    border: 1px solid #ced4da;
+    border-radius: 4px;
+    font-size: 14px;
+    background-color: white;
+    color: #495057;
+    cursor: pointer;
+    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+
+.metric-filter select:focus {
+    border-color: #1a365d;
+    outline: 0;
+    box-shadow: 0 0 0 0.2rem rgba(26, 54, 93, 0.25);
+}
+
+/* Tooltip styles */
+.tooltip, .global-tooltip {
+    position: absolute;
+    background: rgba(0, 0, 0, 0.9);
+    color: white;
+    padding: 10px;
+    border-radius: 6px;
+    font-size: 12px;
+    font-family: 'Segoe UI', Arial, sans-serif;
+    pointer-events: none;
+    z-index: 1000;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+/* Area chart hover effects */
+.area {
+    transition: opacity 0.2s ease;
+    cursor: pointer;
+}
+
+.area:hover {
+    opacity: 1 !important;
+}
+
+/* Legend styles */
+.legend-item {
+    cursor: pointer;
+}
+
+.legend-item:hover rect {
+    stroke: #333;
+    stroke-width: 2;
+}
+
+.legend-item text {
+    font-family: 'Segoe UI', Arial, sans-serif;
+    fill: #333;
+}
+
+/* Axis styles */
+.axis text {
+    font-family: 'Segoe UI', Arial, sans-serif;
+    font-size: 12px;
+    fill: #666;
+}
+
+.axis path,
+.axis line {
+    fill: none;
+    stroke: #666;
+    shape-rendering: crispEdges;
+}
+
+/* Chart title styles */
+svg text {
+    font-family: 'Segoe UI', Arial, sans-serif;
+}
+
+/* Mobile responsiveness */
+@media (max-width: 768px) {
+    .metric-filter {
+        text-align: left;
+        padding: 10px;
+    }
+    
+    .metric-filter label {
+        display: block;
+        margin-bottom: 8px;
+    }
+    
+    .metric-filter select {
+        width: 100%;
+    }
+}
