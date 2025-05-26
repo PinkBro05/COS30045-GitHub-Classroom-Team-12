@@ -6,7 +6,8 @@ d3.csv('data/annual_metrics_data.csv', d => ({
 })).then(data => {
   console.log(data);
 
-  filterData = data.filter(d => d.year === 2023 && d.metric === 'speed_fines').sort((a, b) => b.data - a.data);
+  drawMapAndBar('#australia-map', data.filter(d => d.year === 2023 && d.metric === 'speed_fines'));
 
-  drawMapAndBar('#australia-map', filterData);
+  drawStackedArea('#stacked-area', data.filter(d => d.metric === 'speed_fines'));
+  // createMetricFilter();
 });
