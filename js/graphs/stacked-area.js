@@ -26,16 +26,16 @@ function formatNumber(num) {
     return num.toLocaleString();
 }
 
-// Color scheme for different jurisdictions
+// Color scheme using Okabe-Ito palette for color-blind safety
 const jurisdictionColors = {
-    'NSW': '#FF6B6B',
-    'VIC': '#4ECDC4', 
-    'QLD': '#45B7D1',
-    'SA': '#96CEB4',
-    'WA': '#FFEAA7',
-    'TAS': '#DDA0DD',
-    'NT': '#98D8C8',
-    'ACT': '#F7DC6F'
+    'NSW': '#E69F00',  // Orange
+    'VIC': '#56B4E9',  // Sky Blue
+    'QLD': '#009E73',  // Bluish Green
+    'SA': '#F0E442',   // Yellow
+    'WA': '#0072B2',   // Blue
+    'TAS': '#D55E00',  // Vermillion
+    'NT': '#CC79A7',   // Reddish Purple
+    'ACT': '#999999'   // Gray
 };
 
 // Load and process all data files
@@ -181,15 +181,15 @@ function drawStackedArea(selector, data) {
     // Create SVG element
     const svg = container.append('svg')
         .attr('class', 'stacked-area-chart')
-        .attr('viewBox', [0, 0, chartDimensions.width, chartDimensions.height])
-        .attr('width', chartDimensions.width- 200)
-        .attr('height', chartDimensions.height - 200);    // Filter data by metric if needed
+        .attr('viewBox', [0, 0, chartDimensions.width, chartDimensions.height]);// Filter data by metric if needed
     let filteredData = data;
     if (currentMetricFilter !== 'all') {
         filteredData = data.filter(d => d.metric === currentMetricFilter);
     }
 
-    console.log('Filtered data length:', filteredData.length);if (filteredData.length === 0) {
+    console.log('Filtered data length:', filteredData.length);
+
+    if (filteredData.length === 0) {
         svg.append('text')
             .attr('x', chartDimensions.width / 2)
             .attr('y', chartDimensions.height / 2)
@@ -198,6 +198,7 @@ function drawStackedArea(selector, data) {
             .text('No data available for the selected filter');
         return;
     }    // Aggregate data by year and jurisdiction
+
     const aggregatedData = d3.rollup(
         filteredData,
         v => d3.sum(v, d => d.value),
@@ -219,7 +220,8 @@ function drawStackedArea(selector, data) {
     console.log('Processed data for chart:', processedData.slice(0, 3));// Set up scales
     const xScale = d3.scaleLinear()
         .domain(d3.extent(years))
-        .range([0, chartDimensions.inner.width]);    const yScale = d3.scaleLinear()
+        .range([0, chartDimensions.inner.width]);
+        const yScale = d3.scaleLinear()
         .domain([0, d3.max(processedData, d => 
             d3.sum(jurisdictions, jurisdiction => d[jurisdiction])
         ) + (jurisdictions.length * 2)]) // Add padding to domain
@@ -314,21 +316,46 @@ function drawStackedArea(selector, data) {
         .attr('fill', 'black')
         .style('text-anchor', 'middle')
         .style('font-size', '14px')
-        .text('Year');
-
-    // Add y-axis
+        .text('Year');    // Add y-axis
     chart.append('g')
         .call(d3.axisLeft(yScale))
         .append('text')
         .attr('transform', 'rotate(-90)')
-        .attr('y', -75)
+        .attr('y', -60)
         .attr('x', -chartDimensions.inner.height / 2)
-        .attr('fill', 'black')
-        .style('text-anchor', 'middle')
+        .attr('fill', 'black')        .style('text-anchor', 'middle')
         .style('font-size', '14px')
-        .text('Count/Fines');    // Add legend
+        .text('Count/Fines');
+
+    // Add reference lines for National Road Safety Strategy periods
+    const referenceLines = [
+        { year: 2021, label: '2021-30 National Road Safety Strategy', color: '#CC0000', dasharray: '5,5' },
+        { year: 2023, label: '2023-25 Action Plan', color: '#0066CC', dasharray: '3,3' }
+    ];
+
+    referenceLines.forEach(line => {
+        if (line.year >= d3.min(years) && line.year <= d3.max(years)) {
+            // Add vertical reference line
+            chart.append('line')
+                .attr('x1', xScale(line.year))
+                .attr('x2', xScale(line.year))
+                .attr('y1', 0)
+                .attr('y2', chartDimensions.inner.height)
+                .attr('stroke', line.color)
+                .attr('stroke-width', 2)
+                .attr('stroke-dasharray', line.dasharray)
+                .style('opacity', 0.7);            // Add label for the reference line
+            chart.append('text')
+                .attr('x', xScale(line.year) - 80)
+                .attr('y', line.year === 2023 ? 30 : 15) // Move 2023 label down to avoid overlap
+                .attr('fill', line.color)
+                .style('font-size', '11px')
+                .style('font-weight', 'bold')
+                .text(line.label);
+        }
+    });    // Add legend
     const legend = svg.append('g')
-        .attr('transform', `translate(${chartDimensions.width - 20}, 20)`);
+        .attr('transform', `translate(${chartDimensions.width - 47}, 190)`);
 
     const legendItems = legend.selectAll('.legend-item')
         .data(jurisdictions)
