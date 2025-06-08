@@ -106,11 +106,17 @@ function drawBarChart(svg, data) {
 }
 
 function drawMapAndBar(selector, data) {
+  if (!data || data.length === 0) {
+    console.warn('No data provided to drawMapAndBar');
+    return;
+  }
 
   data = data.sort((a, b) => d3.ascending(a.data, b.data));
 
-  const svg = d3.select(selector).append('svg');
-  svg.selectAll("*").remove(); // Clear existing content
+  const container = d3.select(selector);
+  container.selectAll("*").remove(); // Clear existing content
+  
+  const svg = container.append('svg');
   svg.attr('viewBox', [0, 0, 800, 750]); // Different viewBox for better fit for map
 
   drawAustraliaMap(svg, data);

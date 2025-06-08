@@ -92,6 +92,97 @@ function processCSVData(data, valueColumn) {
     })).filter(d => !isNaN(d.year) && !isNaN(d.value));
 }
 
+// Shared filter state and functionality
+const SharedFilter = {
+    currentMetric: 'speed_fines',
+    currentYear: 2023,
+    data: null,
+    callbacks: []
+};
+
+// Add callback for when filter changes
+function addFilterCallback(callback) {
+    SharedFilter.callbacks.push(callback);
+}
+
+// Update filter and notify all charts
+function updateFilter(metric, year) {
+    SharedFilter.currentMetric = metric;
+    SharedFilter.currentYear = year;
+    
+    // Notify all registered callbacks
+    SharedFilter.callbacks.forEach(callback => {
+        callback(SharedFilter.currentMetric, SharedFilter.currentYear);
+    });
+}
+
+// Create shared metric filter UI
+function createSharedMetricFilter(data) {
+    SharedFilter.data = data;
+    
+    // Get unique metrics and years
+    const metrics = [...new Set(data.map(d => d.metric))].sort();
+    const years = [...new Set(data.map(d => d.year))].sort((a, b) => b - a);
+    
+    const filterContainer = d3.select('#metric-filters');
+    filterContainer.selectAll('*').remove(); // Clear existing filters
+    
+    // Create filter container
+    const filterDiv = filterContainer
+        .append('div')
+        .attr('class', 'filter-controls')
+        .style('display', 'flex')
+        .style('gap', '20px')
+        .style('align-items', 'center')
+        .style('margin-bottom', '20px');
+    
+    // Metric filter
+    const metricDiv = filterDiv.append('div').attr('class', 'filter-group');
+    metricDiv.append('label')
+        .text('Metric: ')
+        .style('margin-right', '8px')
+        .style('font-weight', 'bold');
+    
+    const metricSelect = metricDiv.append('select')
+        .attr('class', 'metric-filter')
+        .on('change', function() {
+            updateFilter(this.value, SharedFilter.currentYear);
+        });
+    
+    metricSelect.selectAll('option')
+        .data(metrics)
+        .join('option')
+        .attr('value', d => d)
+        .property('selected', d => d === SharedFilter.currentMetric)
+        .text(d => formatMetricName(d));
+    
+    // Year filter
+    const yearDiv = filterDiv.append('div').attr('class', 'filter-group');
+    yearDiv.append('label')
+        .text('Year: ')
+        .style('margin-right', '8px')
+        .style('font-weight', 'bold');
+    
+    const yearSelect = yearDiv.append('select')
+        .attr('class', 'year-filter')
+        .on('change', function() {
+            updateFilter(SharedFilter.currentMetric, +this.value);
+        });
+    
+    yearSelect.selectAll('option')
+        .data(years)
+        .join('option')
+        .attr('value', d => d)
+        .property('selected', d => d === SharedFilter.currentYear)
+        .text(d => d);
+}
+
+// Format metric names for display
+function formatMetricName(metric) {
+    return metric.replace(/_/g, ' ')
+        .replace(/\b\w/g, l => l.toUpperCase());
+}
+
 // Initialize global interactions when DOM loads
 document.addEventListener('DOMContentLoaded', function() {
     initGlobalTooltip();
