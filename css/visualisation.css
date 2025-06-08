@@ -115,6 +115,7 @@
 /* Legend styles */
 .legend-item {
     cursor: pointer;
+    transition: opacity 0.2s ease;
 }
 
 .legend-item:hover rect {
@@ -124,6 +125,7 @@
 
 .legend-item text {
     fill: #333;
+    user-select: none;
 }
 
 /* Axis styles */
@@ -295,6 +297,89 @@
 
 .breath-circle:hover, .drug-circle:hover, .positive-circle:hover {
     r: 6;
+}
+
+/* Nightingale Rose Chart Styles */
+#nightingale-rose {
+    min-height: 600px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#nightingale-rose svg {
+    max-width: 100%;
+    height: auto;
+}
+
+.nightingale-petal {
+    transition: opacity 0.2s ease;
+    cursor: pointer;
+}
+
+.nightingale-petal:hover {
+    opacity: 1 !important;
+    stroke-width: 2px;
+}
+
+.nightingale-legend {
+    font-family: 'Segoe UI', Arial, sans-serif;
+}
+
+.nightingale-legend text {
+    font-size: 12px;
+    fill: #333;
+}
+
+.nightingale-legend rect {
+    stroke: #fff;
+    stroke-width: 1px;
+}
+
+/* Nightingale Rose Chart Legend Styles */
+.legend-item {
+    transition: opacity 0.2s ease;
+}
+
+.legend-item:hover {
+    opacity: 0.7 !important;
+}
+
+.legend-item text {
+    user-select: none;
+}
+
+.control-button {
+    transition: opacity 0.2s ease;
+}
+
+.control-button:hover {
+    opacity: 0.8;
+}
+
+.control-button rect {
+    transition: fill 0.2s ease;
+}
+
+.control-button:hover rect {
+    filter: brightness(0.95);
+}
+
+/* Responsive adjustments for Nightingale Rose */
+@media (max-width: 768px) {
+    #nightingale-rose {
+        min-height: 400px;
+    }
+    
+    .nightingale-legend text {
+        font-size: 10px;
+    }
+}
+
+@media (max-width: 480px) {
+    #nightingale-rose {
+        min-height: 350px;
+    }
 }
 
 /* Mobile responsiveness */

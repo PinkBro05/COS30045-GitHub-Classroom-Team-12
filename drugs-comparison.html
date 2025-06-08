@@ -28,12 +28,12 @@
 
         <!-- Quick Guide -->
         <div class="quick-guide">
-            <h4>💡 How to Interact:</h4>
-            <p><strong>Hover</strong> over chart segments to see detailed information • <strong>Navigate</strong> between pages using the top menu • The Nightingale Rose chart shows <strong>drug usage patterns by state</strong></p>
+            <h4>💡 How to Interact with the Nightingale Rose Chart:</h4>
+            <p><strong>Hover</strong> over chart petals to see detailed drug usage statistics • <strong>Click</strong> on legend items to filter/isolate specific drug types • <strong>Use "Show All/Hide All"</strong> buttons for quick filtering • Each petal represents a state, with drug types layered by frequency per 10,000 licenses</p>
         </div>
 
         <div class="chart-section">
-            <h3>Drug Usage by State</h3>
+            <h3>Drug Types per 10,000 Licenses by State (2023)</h3>
             <div id="nightingale-rose" class="responsive-svg-container"></div>
         </div>
     </main>
@@ -41,5 +41,10 @@
     <footer>
         <p>&copy; 2025 Road Safety Australia Data Visualisation</p>
     </footer>
+
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <script src="js/shared-constants.js"></script>
+    <script src="js/graphs/nightingale-rose.js"></script>
+    <script src="js/load-data/nightingale-rose.js"></script>
 </body>
 </html>

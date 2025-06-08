@@ -384,7 +384,7 @@ function drawAxes(chart, xScale, yScaleBar, yScaleLine) {
 function drawComboLegend(chart) {
   const legend = chart.append('g')
     .attr('class', 'combo-legend')
-    .attr('transform', `translate(10, 10)`);
+    .attr('transform', `translate(10, -40)`);
 
   let legendData = [];
   
