@@ -126,17 +126,25 @@ class NightingaleRoseChart {
       return;
     }
 
-    // Group data by state
+    // Group data by state and calculate maximum total per state for proper scaling
     const dataByState = d3.group(filteredData, d => d.state);
+    
+    // Calculate the maximum total value per state for scaling
+    let maxTotalValue = 0;
+    dataByState.forEach((stateData) => {
+      const totalValue = d3.sum(stateData, d => d.per10k);
+      if (totalValue > maxTotalValue) {
+        maxTotalValue = totalValue;
+      }
+    });
     
     // Calculate angles for each state
     const states = Array.from(dataByState.keys());
     const angleStep = (2 * Math.PI) / states.length;
     
-    // Create scales
-    const maxPer10k = d3.max(filteredData, d => d.per10k);
+    // Create scales using the maximum total value
     const radiusScale = d3.scaleLinear()
-      .domain([0, maxPer10k])
+      .domain([0, maxTotalValue])
       .range([20, NIGHTINGALE_CONFIG.dimensions.radius]);
 
     // Draw petals for each state
@@ -145,13 +153,17 @@ class NightingaleRoseChart {
       const startAngle = stateIndex * angleStep;
       const endAngle = (stateIndex + 1) * angleStep;
       
-      // Sort drugs by frequency for better visual layering
-      const sortedDrugs = stateData.sort((a, b) => b.per10k - a.per10k);
+      // Sort drugs by frequency for better visual layering (smallest to largest for proper stacking)
+      const sortedDrugs = stateData.sort((a, b) => a.per10k - b.per10k);
       
-      // Draw each drug type as a petal segment
+      // Calculate cumulative values for proper stacking
+      let cumulativeValue = 0;
+      
+      // Draw each drug type as a stacked petal segment
       sortedDrugs.forEach((drugData, drugIndex) => {
-        const innerRadius = drugIndex === 0 ? 0 : radiusScale(sortedDrugs[drugIndex - 1].per10k);
-        const outerRadius = radiusScale(drugData.per10k);
+        const innerRadius = cumulativeValue === 0 ? 0 : radiusScale(cumulativeValue);
+        cumulativeValue += drugData.per10k;
+        const outerRadius = radiusScale(cumulativeValue);
         
         // Create arc generator
         const arc = d3.arc()
@@ -159,7 +171,7 @@ class NightingaleRoseChart {
           .outerRadius(outerRadius)
           .startAngle(startAngle)
           .endAngle(endAngle)
-          .padAngle(0.02);
+          .padAngle(0.01);
 
         // Add petal
         const petal = this.chartGroup
@@ -170,13 +182,15 @@ class NightingaleRoseChart {
           .attr('stroke', '#fff')
           .attr('stroke-width', 1)
           .style('cursor', 'pointer')
-          .style('opacity', 0.8)
+          .style('opacity', 0)
           .transition()
           .duration(NIGHTINGALE_CONFIG.transitions.duration)
           .style('opacity', 0.8);
 
-        // Add hover effects
-        this.chartGroup.select(`path:last-child`)
+        // Add hover effects (need to reselect the path after transition)
+        this.chartGroup.selectAll('path').filter(function(d) {
+          return d === drugData;
+        })
           .on('mouseover', (event, d) => {
             d3.select(event.target).style('opacity', 1);
             this.showTooltip(event, d);

@@ -82,7 +82,12 @@ main {
     }
 
     .filters {
+        background: #ffffff;
+        border: 1px solid #e2e8f0;
+        border-radius: 8px;
+        padding: 1.5rem;
         margin-bottom: 2rem;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 
         h3 {
             font-size: 1.5rem;
@@ -91,15 +96,44 @@ main {
             text-align: center;
         }
 
+        .filter-controls {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .filter-group {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
         label {
             font-weight: bold;
             margin-right: 0.5rem;
+            color: #2d5a87;
         }
 
         select {
-            padding: 0.5rem;
+            padding: 0.5rem 0.75rem;
             border: 1px solid #ccc;
             border-radius: 4px;
+            background: white;
+            font-size: 0.9rem;
+            min-width: 120px;
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+
+            &:focus {
+                outline: none;
+                border-color: #63b3ed;
+                box-shadow: 0 0 0 3px rgba(99, 179, 237, 0.1);
+            }
+
+            &:hover {
+                border-color: #a0aec0;
+            }
         }
     }
 

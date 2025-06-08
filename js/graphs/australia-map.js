@@ -24,6 +24,22 @@ function drawAustraliaMap(svg, data) {
 
   mapColorScale.domain([0, d3.max(data, d => d.data)]);
 
+  // Create tooltip for map
+  const mapTooltip = d3.select('body').selectAll('.map-tooltip').data([null]);
+  const tooltip = mapTooltip.enter()
+    .append('div')
+    .attr('class', 'map-tooltip global-tooltip')
+    .merge(mapTooltip)
+    .style('opacity', 0)
+    .style('position', 'absolute')
+    .style('background', 'rgba(0, 0, 0, 0.8)')
+    .style('color', 'white')
+    .style('padding', '10px')
+    .style('border-radius', '4px')
+    .style('font-size', '12px')
+    .style('pointer-events', 'none')
+    .style('z-index', '1000');
+
   innerMap.append('g')
     .attr('class', 'australia-map-legend')
     .attr('transform', `translate(${width - 350}, ${height - 50})`)
@@ -43,7 +59,35 @@ function drawAustraliaMap(svg, data) {
           return value ? mapColorScale(value.data) : '#ccc';
         })
         .attr('stroke', '#fff')
-        .attr('stroke-width', 0.5);
+        .attr('stroke-width', 0.5)
+        .style('cursor', 'pointer')
+        .on('mouseover', function(event, d) {
+          const stateData = data.find(item => item.state === mapIdToState[d.id]);
+          if (stateData) {
+            d3.select(this).style('opacity', 0.8);
+            const metricText = stateData.metric === 'ALL' 
+              ? 'Combined Metrics Data' 
+              : 'Metric Data';
+            const content = `<strong>${stateData.state}</strong><br/>${metricText}: ${Math.round(stateData.data * 100) / 100}`;
+            showTooltip(tooltip, content, event);
+          }
+        })
+        .on('mousemove', function(event, d) {
+          const stateData = data.find(item => item.state === mapIdToState[d.id]);
+          if (stateData) {
+            const metricText = stateData.metric === 'ALL' 
+              ? 'Combined Metrics Data' 
+              : 'Metric Data';
+            const content = `<strong>${stateData.state}</strong><br/>${metricText}: ${Math.round(stateData.data * 100) / 100}`;
+            tooltip.html(content)
+              .style('left', (event.pageX + 10) + 'px')
+              .style('top', (event.pageY - 28) + 'px');
+          }
+        })
+        .on('mouseout', function(event, d) {
+          d3.select(this).style('opacity', 1);
+          hideTooltip(tooltip);
+        });
     });
 }
 
