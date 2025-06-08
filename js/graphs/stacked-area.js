@@ -91,11 +91,17 @@ function drawStackedArea(selector, data) {
   // Add tooltip interactions to areas
   if (StackedAreaChart.tooltip) {
     areas.on('mouseover', function(event, d) {
-      const content = `<strong>${d.key}</strong><br/>Metric Data`;
+      const metricText = data.length > 0 && data[0].metric === 'ALL' 
+        ? 'Combined Metrics Data' 
+        : 'Metric Data';
+      const content = `<strong>${d.key}</strong><br/>${metricText}`;
       showTooltip(StackedAreaChart.tooltip, content, event);
     })
     .on('mousemove', function(event, d) {
-      const content = `<strong>${d.key}</strong><br/>Metric Data`;
+      const metricText = data.length > 0 && data[0].metric === 'ALL' 
+        ? 'Combined Metrics Data' 
+        : 'Metric Data';
+      const content = `<strong>${d.key}</strong><br/>${metricText}`;
       StackedAreaChart.tooltip.html(content)
         .style('left', (event.pageX + 10) + 'px')
         .style('top', (event.pageY - 28) + 'px');
@@ -172,7 +178,21 @@ function drawLegend(svg, jurisdictions) {
       StackedAreaChart.selectedJurisdiction = StackedAreaChart.selectedJurisdiction === d ? 'all' : d;
       // Re-render with updated filter - we need access to current data for this
       if (window.fullData && SharedFilter) {
-        const filteredData = window.fullData.filter(item => item.metric === SharedFilter.currentMetric);
+        let filteredData;
+        if (SharedFilter.currentMetric === 'ALL') {
+          // For "ALL" metrics: aggregate data by state and year
+          const stackedDataByStateYear = {};
+          window.fullData.forEach(item => {
+            const key = `${item.state}_${item.year}`;
+            if (!stackedDataByStateYear[key]) {
+              stackedDataByStateYear[key] = { state: item.state, year: item.year, data: 0, metric: 'ALL' };
+            }
+            stackedDataByStateYear[key].data += item.data;
+          });
+          filteredData = Object.values(stackedDataByStateYear);
+        } else {
+          filteredData = window.fullData.filter(item => item.metric === SharedFilter.currentMetric);
+        }
         drawStackedArea('#stacked-area', filteredData);
       }
     })

@@ -94,7 +94,7 @@ function processCSVData(data, valueColumn) {
 
 // Shared filter state and functionality
 const SharedFilter = {
-    currentMetric: 'speed_fines',
+    currentMetric: 'ALL',
     currentYear: 2023,
     data: null,
     callbacks: []
@@ -124,6 +124,9 @@ function createSharedMetricFilter(data) {
     const metrics = [...new Set(data.map(d => d.metric))].sort();
     const years = [...new Set(data.map(d => d.year))].sort((a, b) => b - a);
     
+    // Add "ALL" option at the beginning of metrics array
+    const metricsWithAll = ['ALL', ...metrics];
+    
     const filterContainer = d3.select('#metric-filters');
     filterContainer.selectAll('*').remove(); // Clear existing filters
     
@@ -150,7 +153,7 @@ function createSharedMetricFilter(data) {
         });
     
     metricSelect.selectAll('option')
-        .data(metrics)
+        .data(metricsWithAll)
         .join('option')
         .attr('value', d => d)
         .property('selected', d => d === SharedFilter.currentMetric)
@@ -179,6 +182,9 @@ function createSharedMetricFilter(data) {
 
 // Format metric names for display
 function formatMetricName(metric) {
+    if (metric === 'ALL') {
+        return 'All Metrics Combined';
+    }
     return metric.replace(/_/g, ' ')
         .replace(/\b\w/g, l => l.toUpperCase());
 }

@@ -8,12 +8,14 @@ This interactive dashboard provides comprehensive visualization of road safety i
 
 #### Main Dashboard (index.html)
 - **Dynamic Filters**: Dropdown menus for metric and year selection that update all charts simultaneously
+  - **"All Metrics Combined" Option**: Aggregates data across all metric categories for comprehensive analysis
 - **Interactive Map**: Color-coded Australian map with hover tooltips showing state-specific data
 - **Stacked Area Chart**: 
   - Hover tooltips for detailed information
   - Clickable legend to filter by state
   - Reference lines marking policy milestones
-- **Companion Bar Chart**: Sorted horizontal bars with precise values
+  - Supports both individual metrics and combined metrics view
+- **Companion Bar Chart**: Sorted horizontal bars with precise values, dynamically titled based on selected metric
 
 #### Interactive Elements Across All Pages
 - **Tooltips**: Hover over any chart element to see detailed information

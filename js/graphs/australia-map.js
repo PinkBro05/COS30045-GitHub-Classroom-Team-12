@@ -96,8 +96,13 @@ function drawBarChart(svg, data) {
     .attr('fill', 'black')
     .attr('class', 'bar-label figure');
 
+  // Dynamic title based on metric type
+  const titleText = data.length > 0 && data[0].metric === 'ALL' 
+    ? 'Combined Data by State' 
+    : 'Total Data by State';
+
   innerBar.append('text')
-    .text('Total Data by State')
+    .text(titleText)
     .attr('x', graphWidth / 2)
     .attr('y', -10)
     .attr('text-anchor', 'middle')
