@@ -267,6 +267,36 @@
     font-weight: 600;
 }
 
+/* Combination Chart Styles */
+.combo-legend .legend-item {
+    cursor: default;
+}
+
+.combo-legend .legend-item text {
+    font-family: 'Segoe UI', Arial, sans-serif;
+}
+
+.breath-bar, .drug-bar, .conducted-bar {
+    transition: opacity 0.2s ease;
+}
+
+.breath-bar:hover, .drug-bar:hover, .conducted-bar:hover {
+    opacity: 1 !important;
+}
+
+.breath-line, .drug-line, .positive-line {
+    filter: drop-shadow(1px 1px 2px rgba(0,0,0,0.1));
+}
+
+.breath-circle, .drug-circle, .positive-circle {
+    transition: r 0.2s ease;
+    cursor: pointer;
+}
+
+.breath-circle:hover, .drug-circle:hover, .positive-circle:hover {
+    r: 6;
+}
+
 /* Mobile responsiveness */
 @media (max-width: 768px) {
     .metric-filter {

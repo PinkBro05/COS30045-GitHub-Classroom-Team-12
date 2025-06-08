@@ -21,19 +21,19 @@
     </header>
 
     <main>
-        <div class="intro">
-            <h2>Drugs and Alcohol Testing Over Time</h2>
-            <p>This dashboard provides an overview of drugs and alcohol testing across Australia.</p>
+        <div class="info-section">
+            <h2>Drug and Alcohol Testing Analysis</h2>
+            <p>This dashboard provides a comprehensive overview of drug and alcohol testing across Australia, combining the volume of tests conducted with their positive results over time.</p>
         </div>
 
         <!-- Quick Guide -->
         <div class="quick-guide">
             <h4>💡 How to Interact:</h4>
-            <p><strong>Hover</strong> over chart elements to see detailed tooltips • <strong>Navigate</strong> between pages using the top menu • Charts show <strong>trends over time</strong> for drug and alcohol testing data</p>
+            <p><strong>Filter by Test Type:</strong> Use the dropdown to view all tests, breath only, or drug only • <strong>Hover</strong> over bars and line points for detailed values • <strong>Charts show:</strong> Bars = tests conducted, Lines = positive cases</p>
         </div>
 
         <div class="chart-section">
-            <h3>Drug and Alcohol Testing Trends</h3>
+            <h3>Drug and Alcohol Testing: Tests Conducted vs Positive Results</h3>
             <div id="combination" class="responsive-svg-container"></div>
         </div>
     </main>
@@ -47,6 +47,6 @@
     <script src="js/shared-constants.js"></script>
     <script src="js/interactions.js"></script>
     <script src="js/graphs/combination-chart.js"></script>
-    <script src="js/load-data/index.js"></script>
+    <script src="js/load-data/combination-chart.js"></script>
 </body>
 </html>
